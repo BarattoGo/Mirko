@@ -1,92 +1,244 @@
-import React, { useEffect } from 'react';
-import { Wine, Coffee, Clock, MapPin } from 'lucide-react';
+import React, { useEffect, useState, useRef } from 'react';
+import { Wine, Coffee, Clock, MapPin, Phone, Sun, Moon } from 'lucide-react';
 import './index.css';
 
-// We'll assume the generated image is available or we can use a direct path
-// In reality, it is at: /Users/patrick/.gemini/antigravity-ide/brain/d98e283d-812b-431d-bdde-60ebfb12ef0f/hero_background_1788446979643.jpg
-// For the actual app we should import it or serve it. Let's use a URL for now if we can, or just a placeholder CSS.
-// Let's create a Hero component.
+/* ============================================
+   NAVBAR
+   ============================================ */
+const Navbar = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-const Hero = () => (
-  <header className="hero" style={{
-    height: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-    overflow: 'hidden'
-  }}>
-    {/* Background Image - I'll use a direct path for the prototype, usually we'd move it to public */}
-    <div style={{
-      position: 'absolute',
-      top: 0, left: 0, width: '100%', height: '100%',
-      backgroundImage: `url('/hero.jpg')`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      filter: 'brightness(0.4)',
-      zIndex: -1
-    }} />
-    
-    <div className="container" style={{ textAlign: 'center', zIndex: 1 }}>
-      <div className="glass animate-fade-in" style={{ padding: '4rem 2rem', display: 'inline-block' }}>
-        <h1 className="title-glow text-gold" style={{ fontSize: '4rem', marginBottom: '1rem' }}>Nocturne Bar</h1>
-        <p style={{ fontSize: '1.2rem', marginBottom: '2rem', letterSpacing: '2px', textTransform: 'uppercase' }}>
-          Elevate Your Spirits
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  return (
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+      <div className="container">
+        <a href="#" className="nav-logo">
+          da <span>Mirko</span>
+        </a>
+        <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
+          <a href="#chi-siamo" onClick={() => setMenuOpen(false)}>Chi Siamo</a>
+          <a href="#menu" onClick={() => setMenuOpen(false)}>Menù</a>
+          <a href="#gintoneria" onClick={() => setMenuOpen(false)}>Gintoneria</a>
+          <a href="#contatti" onClick={() => setMenuOpen(false)}>Contatti</a>
+        </div>
+        <button
+          className="nav-hamburger"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+  );
+};
+
+/* ============================================
+   HERO
+   ============================================ */
+const Hero = () => {
+  const [showNight, setShowNight] = useState(false);
+
+  useEffect(() => {
+    const timer = setInterval(() => setShowNight(prev => !prev), 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <header className="hero">
+      <div className="hero-bg">
+        <img
+          src="/hero-day.jpg"
+          alt="Bar da Mirko di giorno"
+          style={{ opacity: showNight ? 0 : 1 }}
+        />
+        <div className="hero-img-night">
+          <img
+            src="/hero-night.jpg"
+            alt="Bar da Mirko di sera"
+            style={{ opacity: showNight ? 1 : 0 }}
+          />
+        </div>
+      </div>
+      <div className="hero-overlay" />
+      <div className="hero-content">
+        <span className="label">Caffetteria &bull; Gintoneria</span>
+        <h1>Bar <em>da Mirko</em></h1>
+        <div className="hero-divider" />
+        <p className="hero-subtitle">
+          Di giorno il tuo bar di fiducia. Di sera, la gintoneria che cercavi.
         </p>
-        <a href="#menu" className="btn btn-primary">Scopri il Menù</a>
+        <div className="hero-cta-group">
+          <a href="#menu" className="btn btn-primary">Scopri il Menù</a>
+          <a href="#gintoneria" className="btn btn-outline">La Gintoneria</a>
+        </div>
       </div>
-    </div>
-  </header>
-);
+    </header>
+  );
+};
 
-const About = () => (
-  <section id="about" className="section container" style={{ display: 'flex', gap: '4rem', alignItems: 'center', flexWrap: 'wrap' }}>
-    <div style={{ flex: '1 1 400px' }} className="animate-fade-in">
-      <h2 className="text-gold" style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>La Nostra Storia</h2>
-      <p style={{ marginBottom: '1rem', color: 'var(--text-secondary)' }}>
-        Situato nel cuore della città, Nocturne Bar (da Mirko) è il punto d'incontro ideale per chi cerca un'atmosfera elegante e rilassata. 
-        Da oltre 10 anni offriamo ai nostri clienti un'esperienza unica, combinando la tradizione della caffetteria italiana con l'innovazione della mixology moderna.
-      </p>
-      <p style={{ color: 'var(--text-secondary)' }}>
-        Che sia per una colazione veloce, un aperitivo tra amici o un drink serale, da noi troverai sempre la massima qualità e un sorriso ad accoglierti.
-      </p>
-    </div>
-    <div style={{ flex: '1 1 400px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-      <div className="glass" style={{ padding: '2rem', textAlign: 'center' }}>
-        <Coffee className="text-gold" size={48} style={{ margin: '0 auto 1rem' }} />
-        <h3>Caffetteria</h3>
+/* ============================================
+   DUAL IDENTITY SECTION
+   ============================================ */
+const DualIdentity = () => (
+  <section className="dual-section">
+    <div className="dual-card day">
+      <div className="dual-card-bg">
+        <img src="/hero-day.jpg" alt="Atmosfera diurna" />
       </div>
-      <div className="glass" style={{ padding: '2rem', textAlign: 'center' }}>
-        <Wine className="text-gold" size={48} style={{ margin: '0 auto 1rem' }} />
-        <h3>Mixology</h3>
+      <div className="dual-card-overlay" />
+      <div className="dual-card-content reveal">
+        <span className="label">
+          <Sun size={14} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} />
+          Di Giorno
+        </span>
+        <h2>Caffetteria<br />& Bar</h2>
+        <p>
+          Colazioni con cornetti appena sfornati, caffè selezionati,
+          pranzi veloci e aperitivi al tramonto. Il tuo punto di riferimento.
+        </p>
+      </div>
+    </div>
+    <div className="dual-card night">
+      <div className="dual-card-bg">
+        <img src="/hero-night.jpg" alt="Atmosfera serale" />
+      </div>
+      <div className="dual-card-overlay" />
+      <div className="dual-card-content reveal">
+        <span className="label">
+          <Moon size={14} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} />
+          Di Sera
+        </span>
+        <h2>Gintoneria<br />d'Autore</h2>
+        <p>
+          Una selezione curata di gin premium, toniche artigianali
+          e botaniche fresche. Ogni drink racconta una storia.
+        </p>
       </div>
     </div>
   </section>
 );
 
-const Menu = () => {
-  const categories = [
-    { name: 'I Classici', items: [{ n: 'Negroni', p: '€8' }, { n: 'Americano', p: '€7' }, { n: 'Spritz', p: '€6' }] },
-    { name: 'Signature Drinks', items: [{ n: 'Golden Nocturne', p: '€12' }, { n: 'Midnight Velvet', p: '€10' }] },
-    { name: 'Caffetteria', items: [{ n: 'Espresso', p: '€1.50' }, { n: 'Cappuccino', p: '€2.50' }] }
+/* ============================================
+   ABOUT
+   ============================================ */
+const About = () => (
+  <section id="chi-siamo" className="section">
+    <div className="container">
+      <div className="about-grid">
+        <div className="about-text reveal">
+          <span className="label">La Nostra Storia</span>
+          <h2>Un locale, <br />due anime</h2>
+          <p>
+            Da Mirko non è solo un bar. È il luogo dove la tradizione del
+            caffè italiano incontra la passione per la mixology. Di giorno
+            vi accogliamo con il profumo dei cornetti appena sfornati e un
+            espresso perfetto. Di sera, il bancone si trasforma e prende
+            vita la nostra gintoneria.
+          </p>
+          <p>
+            Ogni gin tonic è un'esperienza unica: gin selezionati da tutto
+            il mondo, toniche artigianali e guarnizioni fresche scelte con
+            cura per creare l'abbinamento perfetto.
+          </p>
+          <div className="about-stats">
+            <div className="stat-item">
+              <h3>30+</h3>
+              <p>Gin in carta</p>
+            </div>
+            <div className="stat-item">
+              <h3>12</h3>
+              <p>Toniche artigianali</p>
+            </div>
+            <div className="stat-item">
+              <h3>7/7</h3>
+              <p>Giorni a settimana</p>
+            </div>
+          </div>
+        </div>
+        <div className="about-image reveal">
+          <img src="/gin-tonic.jpg" alt="Gin Tonic d'autore" />
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+/* ============================================
+   MENU
+   ============================================ */
+const menuData = {
+  caffetteria: [
+    { name: 'Espresso', price: '€1.20', desc: 'Miscela arabica 100%, tostatura media' },
+    { name: 'Cappuccino', price: '€1.80', desc: 'Con latte fresco e schiuma cremosa' },
+    { name: 'Cornetto Artigianale', price: '€1.50', desc: 'Sfornato ogni mattina, vuoto o farcito' },
+    { name: 'Caffè Shakerato', price: '€3.00', desc: 'Espresso, ghiaccio e un tocco di vaniglia' },
+    { name: 'Spremuta Fresca', price: '€3.50', desc: 'Arance siciliane spremute al momento' },
+    { name: 'Toast Gourmet', price: '€4.50', desc: 'Pane artigianale, prosciutto crudo, burrata' },
+  ],
+  aperitivo: [
+    { name: 'Spritz Classico', price: '€5.00', desc: 'Prosecco, Aperol, soda e oliva' },
+    { name: 'Negroni', price: '€7.00', desc: 'Gin, Campari, vermouth rosso' },
+    { name: 'Americano', price: '€6.00', desc: 'Campari, vermouth rosso, soda' },
+    { name: 'Hugo', price: '€5.50', desc: 'Prosecco, sciroppo di sambuco, menta' },
+    { name: 'Moscow Mule', price: '€7.00', desc: 'Vodka, ginger beer, lime fresco' },
+    { name: 'Tagliere Misto', price: '€12.00', desc: 'Salumi, formaggi, bruschette e olive' },
+  ],
+  gintoneria: [
+    { name: 'Classic G&T', price: '€8.00', desc: 'Tanqueray, Fever-Tree Indian, limone' },
+    { name: 'Floral G&T', price: '€10.00', desc: 'Hendrick\'s, elderflower tonic, cetriolo e rosa' },
+    { name: 'Mediterranean G&T', price: '€10.00', desc: 'Gin Mare, tonica rosmarino, olive e timo' },
+    { name: 'Japanese G&T', price: '€12.00', desc: 'Roku, yuzu tonic, zenzero e shiso' },
+    { name: 'Pink G&T', price: '€9.00', desc: 'Gordon\'s Pink, tonica, fragole e pepe rosa' },
+    { name: 'Smoky G&T', price: '€12.00', desc: 'Monkey 47, tonica affumicata, pompelmo bruciato' },
+  ],
+};
+
+const MenuSection = () => {
+  const [activeTab, setActiveTab] = useState('caffetteria');
+  const tabs = [
+    { id: 'caffetteria', label: 'Caffetteria' },
+    { id: 'aperitivo', label: 'Aperitivo' },
+    { id: 'gintoneria', label: 'Gintoneria' },
   ];
 
   return (
-    <section id="menu" className="section" style={{ backgroundColor: 'var(--bg-color-light)' }}>
+    <section id="menu" className="section">
       <div className="container">
-        <h2 className="text-gold title-glow" style={{ fontSize: '3rem', textAlign: 'center', marginBottom: '3rem' }}>Il Menù</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
-          {categories.map((cat, i) => (
-            <div key={i} className="glass animate-fade-in" style={{ padding: '2rem', animationDelay: `${i * 0.2}s` }}>
-              <h3 style={{ fontSize: '1.8rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.5rem' }}>{cat.name}</h3>
-              <ul style={{ listStyle: 'none' }}>
-                {cat.items.map((item, j) => (
-                  <li key={j} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', fontSize: '1.1rem' }}>
-                    <span>{item.n}</span>
-                    <span className="text-gold">{item.p}</span>
-                  </li>
-                ))}
-              </ul>
+        <div className="menu-header reveal">
+          <span className="label">Cosa Offriamo</span>
+          <h2>Il Menù</h2>
+          <p>Dalla colazione al dopocena, ogni momento ha il suo gusto</p>
+        </div>
+
+        <div className="menu-tabs">
+          {tabs.map(tab => (
+            <button
+              key={tab.id}
+              className={`menu-tab ${activeTab === tab.id ? 'active' : ''}`}
+              onClick={() => setActiveTab(tab.id)}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="menu-grid">
+          {menuData[activeTab].map((item, i) => (
+            <div key={`${activeTab}-${i}`} className="menu-card reveal">
+              <div className="menu-card-header">
+                <h3>{item.name}</h3>
+                <span className="price">{item.price}</span>
+              </div>
+              <p>{item.desc}</p>
             </div>
           ))}
         </div>
@@ -95,65 +247,165 @@ const Menu = () => {
   );
 };
 
-const Footer = () => (
-  <footer className="section" style={{ borderTop: '1px solid var(--glass-border)', paddingBottom: '2rem' }}>
-    <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem' }}>
-      <div>
-        <h3 className="text-gold" style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Nocturne Bar</h3>
-        <p style={{ color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <MapPin size={18} /> Via Roma 123, 00100 Città
-        </p>
-        <p style={{ color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <Clock size={18} /> Lun-Dom: 07:00 - 02:00
-        </p>
-      </div>
-      <div>
-        <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Seguici</h3>
-        <div style={{ display: 'flex', gap: '1rem' }}>
-          <a href="#" style={{ color: 'var(--text-primary)', transition: 'color 0.3s', textDecoration: 'none' }} className="hover:text-gold">
-            Instagram
-          </a>
-          <a href="#" style={{ color: 'var(--text-primary)', transition: 'color 0.3s', textDecoration: 'none' }} className="hover:text-gold">
-            Facebook
-          </a>
+/* ============================================
+   GIN SHOWCASE
+   ============================================ */
+const GinShowcase = () => (
+  <section id="gintoneria" className="section gin-section">
+    <div className="container">
+      <div className="gin-grid">
+        <div className="gin-image reveal">
+          <img src="/gin-tonic.jpg" alt="Gin Tonic Signature" />
+        </div>
+        <div className="gin-content reveal">
+          <span className="label">La Gintoneria</span>
+          <h2>L'arte del <br />Gin & Tonic</h2>
+          <p>
+            Ogni sera il nostro bancone si trasforma. Oltre 30 etichette di gin
+            da tutto il mondo, abbinate a toniche artigianali e guarnizioni
+            fresche. Ogni combinazione è studiata per esaltare le botaniche
+            e creare un'esperienza unica.
+          </p>
+          <ul className="gin-list">
+            <li>
+              <span>Gin Premium selezionati</span>
+              <span>30+</span>
+            </li>
+            <li>
+              <span>Toniche artigianali</span>
+              <span>12</span>
+            </li>
+            <li>
+              <span>Botaniche e guarnizioni fresche</span>
+              <span>∞</span>
+            </li>
+            <li>
+              <span>Combinazioni possibili</span>
+              <span>360+</span>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
-    <div style={{ textAlign: 'center', marginTop: '4rem', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-      © {new Date().getFullYear()} Nocturne Bar. Tutti i diritti riservati.
+  </section>
+);
+
+/* ============================================
+   CONTACT
+   ============================================ */
+const Contact = () => (
+  <section id="contatti" className="section">
+    <div className="container">
+      <div className="menu-header reveal">
+        <span className="label">Vieni a Trovarci</span>
+        <h2>Contatti</h2>
+      </div>
+      <div className="contact-grid">
+        <div className="contact-card reveal">
+          <div className="contact-icon">
+            <Clock size={22} />
+          </div>
+          <h3>Orari</h3>
+          <p>
+            Lun — Ven: 6:30 — 01:00<br />
+            Sab — Dom: 7:30 — 02:00
+          </p>
+        </div>
+        <div className="contact-card reveal">
+          <div className="contact-icon">
+            <MapPin size={22} />
+          </div>
+          <h3>Dove Siamo</h3>
+          <p>
+            Via Roma, 42<br />
+            00100 — Città, IT
+          </p>
+        </div>
+        <div className="contact-card reveal">
+          <div className="contact-icon">
+            <Phone size={22} />
+          </div>
+          <h3>Contattaci</h3>
+          <p>
+            +39 333 123 4567<br />
+            info@bardamirko.it
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+/* ============================================
+   FOOTER
+   ============================================ */
+const Footer = () => (
+  <footer className="footer">
+    <div className="container">
+      <div className="footer-grid">
+        <div className="footer-brand">
+          <h3>da <span>Mirko</span></h3>
+          <p>
+            Il tuo bar di fiducia di giorno, la gintoneria che
+            cercavi di sera. Ti aspettiamo.
+          </p>
+        </div>
+        <div className="footer-col">
+          <h4>Naviga</h4>
+          <a href="#chi-siamo">Chi Siamo</a>
+          <a href="#menu">Menù</a>
+          <a href="#gintoneria">Gintoneria</a>
+          <a href="#contatti">Contatti</a>
+        </div>
+        <div className="footer-col">
+          <h4>Orari</h4>
+          <a>Lun — Ven: 6:30 — 01:00</a>
+          <a>Sab — Dom: 7:30 — 02:00</a>
+        </div>
+      </div>
+      <div className="footer-bottom">
+        <span>© {new Date().getFullYear()} Bar da Mirko. Tutti i diritti riservati.</span>
+        <div className="footer-socials">
+          <a href="#" aria-label="Instagram">Instagram</a>
+          <a href="#" aria-label="Facebook">Facebook</a>
+        </div>
+      </div>
     </div>
   </footer>
 );
 
+/* ============================================
+   APP
+   ============================================ */
 function App() {
-  // Simple intersection observer for scroll animations
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = 1;
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, { threshold: 0.1 });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
 
-    document.querySelectorAll('.animate-fade-in').forEach(el => {
-      el.style.opacity = 0;
-      el.style.transform = 'translateY(20px)';
-      el.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
-      observer.observe(el);
-    });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
     return () => observer.disconnect();
   }, []);
 
   return (
-    <div className="App">
+    <>
+      <Navbar />
       <Hero />
+      <DualIdentity />
       <About />
-      <Menu />
+      <MenuSection />
+      <GinShowcase />
+      <Contact />
       <Footer />
-    </div>
+    </>
   );
 }
 
