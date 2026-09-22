@@ -19,7 +19,7 @@ const Navbar = () => {
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="container">
         <a href="#" className="nav-logo">
-          da <span>Mirko</span>
+          Shake <span>&</span> Tonic
         </a>
         <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
           <a href="#chi-siamo" onClick={() => setMenuOpen(false)}>Chi Siamo</a>
@@ -57,13 +57,13 @@ const Hero = () => {
       <div className="hero-bg">
         <img
           src="/hero-day.jpg"
-          alt="Bar da Mirko di giorno"
+          alt="Shake & Tonic di giorno"
           style={{ opacity: showNight ? 0 : 1 }}
         />
         <div className="hero-img-night">
           <img
             src="/hero-night.jpg"
-            alt="Bar da Mirko di sera"
+            alt="Shake & Tonic di sera"
             style={{ opacity: showNight ? 1 : 0 }}
           />
         </div>
@@ -71,7 +71,7 @@ const Hero = () => {
       <div className="hero-overlay" />
       <div className="hero-content">
         <span className="label">Caffetteria &bull; Gintoneria</span>
-        <h1>Bar <em>da Mirko</em></h1>
+        <h1>Shake <em>& Tonic</em></h1>
         <div className="hero-divider" />
         <p className="hero-subtitle">
           Di giorno il tuo bar di fiducia. Di sera, la gintoneria che cercavi.
@@ -138,7 +138,7 @@ const About = () => (
           <span className="label">La Nostra Storia</span>
           <h2>Un locale, <br />due anime</h2>
           <p>
-            Da Mirko non è solo un bar. È il luogo dove la tradizione del
+            Shake & Tonic non è solo un bar. È il luogo dove la tradizione del
             caffè italiano incontra la passione per la mixology. Di giorno
             vi accogliamo con il profumo dei cornetti appena sfornati e un
             espresso perfetto. Di sera, il bancone si trasforma e prende
@@ -344,7 +344,7 @@ const Footer = () => (
     <div className="container">
       <div className="footer-grid">
         <div className="footer-brand">
-          <h3>da <span>Mirko</span></h3>
+          <h3>Shake <span>&</span> Tonic</h3>
           <p>
             Il tuo bar di fiducia di giorno, la gintoneria che
             cercavi di sera. Ti aspettiamo.
@@ -364,7 +364,7 @@ const Footer = () => (
         </div>
       </div>
       <div className="footer-bottom">
-        <span>© {new Date().getFullYear()} Bar da Mirko. Tutti i diritti riservati.</span>
+        <span>© {new Date().getFullYear()} Shake & Tonic. Tutti i diritti riservati.</span>
         <div className="footer-socials">
           <a href="#" aria-label="Instagram">Instagram</a>
           <a href="#" aria-label="Facebook">Facebook</a>
