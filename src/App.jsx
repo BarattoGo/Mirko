@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Wine, Coffee, Clock, MapPin, Phone, Sun, Moon } from 'lucide-react';
 import './index.css';
 
@@ -8,6 +9,7 @@ import './index.css';
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -18,18 +20,18 @@ const Navbar = () => {
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="container">
-        <a href="#" className="nav-logo" style={{ display: 'flex', alignItems: 'center' }}>
+        <Link to="/" className="nav-logo" style={{ display: 'flex', alignItems: 'center' }}>
           <img 
             src="/logo.jpg" 
             alt="Shake & Tonic" 
             style={{ height: '48px', width: '48px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--color-accent)' }} 
           />
-        </a>
+        </Link>
         <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
-          <a href="#chi-siamo" onClick={() => setMenuOpen(false)}>Chi Siamo</a>
-          <a href="#menu" onClick={() => setMenuOpen(false)}>Menù</a>
-          <a href="#gintoneria" onClick={() => setMenuOpen(false)}>Gintoneria</a>
-          <a href="#contatti" onClick={() => setMenuOpen(false)}>Contatti</a>
+          <a href="/#chi-siamo" onClick={() => setMenuOpen(false)}>Chi Siamo</a>
+          <Link to="/menu" onClick={() => setMenuOpen(false)}>Menù</Link>
+          <a href="/#gintoneria" onClick={() => setMenuOpen(false)}>Gintoneria</a>
+          <a href="/#contatti" onClick={() => setMenuOpen(false)}>Contatti</a>
         </div>
         <button
           className="nav-hamburger"
@@ -81,7 +83,7 @@ const Hero = () => {
           Il tuo locale di fiducia a Novara. Gintoneria e Cocktail bar d'autore.
         </p>
         <div className="hero-cta-group">
-          <a href="#menu" className="btn btn-primary">Scopri il Menù</a>
+          <Link to="/menu" className="btn btn-primary">Scopri il Menù</Link>
           <a href="#gintoneria" className="btn btn-outline">La Gintoneria</a>
         </div>
       </div>
@@ -390,10 +392,10 @@ const Footer = () => (
         </div>
         <div className="footer-col">
           <h4>Naviga</h4>
-          <a href="#chi-siamo">Chi Siamo</a>
-          <a href="#menu">Menù</a>
-          <a href="#gintoneria">Gintoneria</a>
-          <a href="#contatti">Contatti</a>
+          <a href="/#chi-siamo">Chi Siamo</a>
+          <Link to="/menu">Menù</Link>
+          <a href="/#gintoneria">Gintoneria</a>
+          <a href="/#contatti">Contatti</a>
         </div>
         <div className="footer-col">
           <h4>Orari</h4>
@@ -413,6 +415,44 @@ const Footer = () => (
 );
 
 /* ============================================
+   ROUTING & SCROLL MANAGEMENT
+   ============================================ */
+const ScrollToAnchor = () => {
+  const { hash, pathname } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      setTimeout(() => {
+        const element = document.getElementById(hash.replace('#', ''));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [hash, pathname]);
+
+  return null;
+};
+
+const HomePage = () => (
+  <>
+    <Hero />
+    <DualIdentity />
+    <About />
+    <GinShowcase />
+    <Contact />
+  </>
+);
+
+const MenuPage = () => (
+  <div style={{ paddingTop: '80px', minHeight: '80vh' }}>
+    <MenuSection />
+  </div>
+);
+
+/* ============================================
    APP
    ============================================ */
 function App() {
@@ -428,22 +468,35 @@ function App() {
       { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
     );
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    const observeElements = () => {
+      document.querySelectorAll('.reveal:not(.visible)').forEach(el => observer.observe(el));
+    };
 
-    return () => observer.disconnect();
+    observeElements();
+    
+    // Fallback mutation observer per elementi renderizzati dai route change
+    const mutationObserver = new MutationObserver(() => {
+      observeElements();
+    });
+    
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      observer.disconnect();
+      mutationObserver.disconnect();
+    };
   }, []);
 
   return (
-    <>
+    <Router>
+      <ScrollToAnchor />
       <Navbar />
-      <Hero />
-      <DualIdentity />
-      <About />
-      <MenuSection />
-      <GinShowcase />
-      <Contact />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/menu" element={<MenuPage />} />
+      </Routes>
       <Footer />
-    </>
+    </Router>
   );
 }
 
