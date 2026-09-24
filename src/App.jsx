@@ -437,7 +437,6 @@ const ScrollToAnchor = () => {
 const HomePage = () => (
   <>
     <Hero />
-    <DualIdentity />
     <About />
     <Contact />
   </>
