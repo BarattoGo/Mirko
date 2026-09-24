@@ -20,14 +20,23 @@ const Navbar = () => {
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="container">
-        <Link to="/" className="nav-logo" style={{ display: 'flex', alignItems: 'center' }}>
+        <Link to="/" className="nav-logo" style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none' }}>
           <img 
             src="/logo.jpg" 
             alt="Shake & Tonic" 
-            style={{ height: '48px', width: '48px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--color-accent)' }} 
+            style={{ height: '48px', width: '48px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--color-accent)', flexShrink: 0 }} 
           />
+          <div className="logo-marquee-container">
+            <div className="logo-marquee-inner">
+              <span>Shake & Tonic</span>
+              <span>Shake & Tonic</span>
+              <span>Shake & Tonic</span>
+              <span>Shake & Tonic</span>
+            </div>
+          </div>
         </Link>
         <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
+          <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
           <a href="/#chi-siamo" onClick={() => setMenuOpen(false)}>Chi Siamo</a>
           <Link to="/menu" onClick={() => setMenuOpen(false)}>Menù</Link>
           <a href="/#gintoneria" onClick={() => setMenuOpen(false)}>Gintoneria</a>
