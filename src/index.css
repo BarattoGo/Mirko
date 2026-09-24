@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Fredericka+the+Great&display=swap');
 
 /* ============================================
    DESIGN SYSTEM — Shake & Tonic
@@ -150,9 +150,9 @@ h3 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  font-family: var(--font-heading);
-  font-size: 1.8rem;
-  font-weight: 500;
+  font-family: 'Fredericka the Great', serif;
+  font-size: 2.4rem;
+  font-weight: 400;
   color: var(--color-text);
   letter-spacing: 0.02em;
   text-decoration: none;
