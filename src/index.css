@@ -146,44 +146,26 @@ h3 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
   align-items: center;
 }
 
-.nav-logo {
+.nav-logo-central {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: var(--font-heading);
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 500;
   color: var(--color-text);
   letter-spacing: 0.02em;
+  text-decoration: none;
 }
 
-.nav-logo span {
+.nav-logo-central span {
   color: var(--color-accent);
 }
 
-.logo-marquee-container {
-  overflow: hidden;
-  white-space: nowrap;
-  width: 140px; 
-  position: relative;
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-}
-
-.logo-marquee-inner {
-  display: inline-block;
-  white-space: nowrap;
-  animation: marquee 8s linear infinite;
-}
-
-.logo-marquee-inner span {
-  font-family: var(--font-heading);
-  font-size: 1.4rem;
-  font-weight: 500;
-  color: var(--color-text);
-  padding-right: 1.5rem;
-}
-
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+@media (max-width: 768px) {
+  .nav-logo-central {
+    font-size: 1.4rem;
+  }
 }
 
 .nav-links {
