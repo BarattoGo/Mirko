@@ -18,8 +18,12 @@ const Navbar = () => {
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="container">
-        <a href="#" className="nav-logo">
-          Shake <span>&</span> Tonic
+        <a href="#" className="nav-logo" style={{ display: 'flex', alignItems: 'center' }}>
+          <img 
+            src="/logo.jpg" 
+            alt="Shake & Tonic" 
+            style={{ height: '48px', width: '48px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--color-accent)' }} 
+          />
         </a>
         <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
           <a href="#chi-siamo" onClick={() => setMenuOpen(false)}>Chi Siamo</a>
