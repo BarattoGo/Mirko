@@ -37,7 +37,7 @@ const Navbar = () => {
         </Link>
         <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
           <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
-          <a href="/#chi-siamo" onClick={() => setMenuOpen(false)}>Chi Siamo</a>
+          <a href="/#contatti" onClick={() => setMenuOpen(false)}>Chi Siamo</a>
           <Link to="/menu" onClick={() => setMenuOpen(false)}>Menù</Link>
           <a href="/#gintoneria" onClick={() => setMenuOpen(false)}>Gintoneria</a>
           <a href="/#contatti" onClick={() => setMenuOpen(false)}>Contatti</a>
@@ -401,7 +401,7 @@ const Footer = () => (
         </div>
         <div className="footer-col">
           <h4>Naviga</h4>
-          <a href="/#chi-siamo">Chi Siamo</a>
+          <a href="/#contatti">Chi Siamo</a>
           <Link to="/menu">Menù</Link>
           <a href="/#gintoneria">Gintoneria</a>
           <a href="/#contatti">Contatti</a>

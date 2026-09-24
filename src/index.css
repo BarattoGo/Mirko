@@ -5,31 +5,31 @@
    ============================================ */
 
 :root {
-  /* Palette — Forest & Copper */
-  --color-bg: #09120e;
-  --color-bg-elevated: #0f1c16;
-  --color-bg-card: #14241d;
-  --color-surface: #0c1813;
+  /* Palette — Viola & Bianco */
+  --color-bg: #12091a;
+  --color-bg-elevated: #1e1029;
+  --color-bg-card: #251433;
+  --color-surface: #170b21;
 
-  --color-text: #f4f0ea;
-  --color-text-muted: #9ba8a2;
-  --color-text-dim: #6e7d76;
+  --color-text: #ffffff;
+  --color-text-muted: #d5c8e3;
+  --color-text-dim: #a694b8;
 
-  --color-accent: #d68d71;
-  --color-accent-light: #e8a892;
-  --color-accent-dark: #b56f54;
-  --color-accent-glow: rgba(214, 141, 113, 0.25);
+  --color-accent: #b266ff;
+  --color-accent-light: #d199ff;
+  --color-accent-dark: #7b2cbf;
+  --color-accent-glow: rgba(178, 102, 255, 0.25);
 
-  --color-warm: #d68d71;
-  --color-teal: #78a391;
-  --color-teal-glow: rgba(120, 163, 145, 0.2);
+  --color-warm: #ffffff;
+  --color-teal: #e0b3ff;
+  --color-teal-glow: rgba(224, 179, 255, 0.2);
 
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-light: rgba(255, 255, 255, 0.12);
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-light: rgba(255, 255, 255, 0.15);
 
   /* Glass */
-  --glass-bg: rgba(15, 28, 22, 0.65);
-  --glass-bg-light: rgba(20, 36, 29, 0.5);
+  --glass-bg: rgba(23, 11, 33, 0.65);
+  --glass-bg-light: rgba(30, 16, 41, 0.5);
   --glass-border: rgba(255, 255, 255, 0.08);
 
   /* Typography */
@@ -133,7 +133,7 @@ h3 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
 }
 
 .navbar.scrolled {
-  background: rgba(9, 18, 14, 0.85);
+  background: rgba(18, 9, 26, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--glass-border);
@@ -280,9 +280,9 @@ h3 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(9, 18, 14, 0.3) 0%,
-    rgba(9, 18, 14, 0.5) 50%,
-    rgba(9, 18, 14, 0.95) 100%
+    rgba(18, 9, 26, 0.3) 0%,
+    rgba(18, 9, 26, 0.5) 50%,
+    rgba(18, 9, 26, 0.95) 100%
   );
   z-index: 1;
 }
@@ -414,15 +414,15 @@ h3 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
 }
 
 .dual-card.day .dual-card-overlay {
-  background: linear-gradient(to top, rgba(9, 18, 14, 0.9) 0%, rgba(9, 18, 14, 0.2) 60%);
+  background: linear-gradient(to top, rgba(18, 9, 26, 0.9) 0%, rgba(18, 9, 26, 0.2) 60%);
 }
 
 .dual-card.night .dual-card-overlay {
-  background: linear-gradient(to top, rgba(6, 12, 9, 0.95) 0%, rgba(6, 12, 9, 0.3) 60%);
+  background: linear-gradient(to top, rgba(10, 5, 15, 0.95) 0%, rgba(10, 5, 15, 0.3) 60%);
 }
 
 .dual-card:hover .dual-card-overlay {
-  background: linear-gradient(to top, rgba(9, 18, 14, 0.95) 0%, rgba(9, 18, 14, 0.4) 60%);
+  background: linear-gradient(to top, rgba(18, 9, 26, 0.95) 0%, rgba(18, 9, 26, 0.4) 60%);
 }
 
 .dual-card-content {
@@ -878,7 +878,7 @@ h3 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
     flex-direction: column;
     position: fixed;
     inset: 0;
-    background: rgba(9, 18, 14, 0.97);
+    background: rgba(18, 9, 26, 0.97);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     justify-content: center;
