@@ -176,38 +176,63 @@ const About = () => (
    MENU
    ============================================ */
 const menuData = {
-  caffetteria: [
-    { name: 'Espresso', price: '€1.20', desc: 'Miscela arabica 100%, tostatura media' },
-    { name: 'Cappuccino', price: '€1.80', desc: 'Con latte fresco e schiuma cremosa' },
-    { name: 'Cornetto Artigianale', price: '€1.50', desc: 'Sfornato ogni mattina, vuoto o farcito' },
-    { name: 'Caffè Shakerato', price: '€3.00', desc: 'Espresso, ghiaccio e un tocco di vaniglia' },
-    { name: 'Spremuta Fresca', price: '€3.50', desc: 'Arance siciliane spremute al momento' },
-    { name: 'Toast Gourmet', price: '€4.50', desc: 'Pane artigianale, prosciutto crudo, burrata' },
+  alcolici: [
+    { section: "I Classici" },
+    { name: 'Aperol Spritz', price: '€6.00', desc: 'Aperol, Prosecco, soda' },
+    { name: 'Negroni', price: '€7.00', desc: 'Campari bitter, Vermouth rosso, Gin' },
+    { name: 'Milano - Torino', price: '€8.00', desc: 'Campari bitter, Vermouth rosso' },
+    { name: 'Hugo Spritz', price: '€7.00', desc: 'St. Germain, Prosecco, foglie di menta' },
+    { section: "Twist sui Classici" },
+    { name: 'Mojito Siciliano', price: '€7.00', desc: 'Limone, arancia, menta, zucchero, amaro Averna, soda' },
+    { name: 'Black Mojito', price: '€7.00', desc: 'Liquore alla liquirizia, lime, zucchero, foglie di menta' },
+    { name: 'Averna Mule', price: '€7.00', desc: 'Amaro Averna, lime, ginger beer' },
+    { section: "Base Gin & Vodka" },
+    { name: 'Gin Fizz', price: '€8.00', desc: 'Gin, succo di limone, sciroppo di zucchero, soda' },
+    { name: 'Bramble', price: '€8.00', desc: 'Gin, succo di limone, sciroppo di zucchero, liquore alle more' },
+    { name: 'Moscow Mule', price: '€7.00', desc: 'Vodka, succo di lime, ginger beer' },
+    { name: 'Porn Star Martini', price: '€7.00', desc: 'Vodka vaniglia, passoa, sciroppo passion fruit, lime' },
+    { section: "Cocktail Storici & Signature" },
+    { name: 'Grasshopper', price: '€10.00', desc: 'Crema di cacao bianca, crema di menta' },
+    { name: 'Hanky Panky', price: '€10.00', desc: 'Gin, Vermouth rosso, Fernet Branca' },
+    { name: 'Stinger', price: '€10.00', desc: 'Cognac, crema di menta bianca' },
+    { section: "La Cantina (Calice / Bottiglia)" },
+    { name: 'Franciacorta', price: '€7 / 40', desc: 'Bollicine italiane d\'eccellenza' },
+    { name: 'Valpolicella', price: '€6 / 30', desc: 'Vino rosso strutturato' },
   ],
-  aperitivo: [
-    { name: 'Spritz Classico', price: '€5.00', desc: 'Prosecco, Aperol, soda e oliva' },
-    { name: 'Negroni', price: '€7.00', desc: 'Gin, Campari, vermouth rosso' },
-    { name: 'Americano', price: '€6.00', desc: 'Campari, vermouth rosso, soda' },
-    { name: 'Hugo', price: '€5.50', desc: 'Prosecco, sciroppo di sambuco, menta' },
-    { name: 'Moscow Mule', price: '€7.00', desc: 'Vodka, ginger beer, lime fresco' },
-    { name: 'Tagliere Misto', price: '€12.00', desc: 'Salumi, formaggi, bruschette e olive' },
+  analcolici: [
+    { section: "Mocktail d'Autore" },
+    { name: 'Sweet & Sour', price: '€6.00', desc: 'Ananas, arancia, sciroppo di fragola, sweet & sour' },
+    { name: 'Solea', price: '€6.00', desc: 'Arancia, frutto della passione, lime' },
+    { name: 'Cool Passion', price: '€7.00', desc: 'Frutto della passione, lampone, sour' },
+    { section: "I Grandi Classici" },
+    { name: 'Aperitivi Analcolici', price: '€6.00 / 7.00', desc: 'Crodino, Sanbittèr, ecc.' },
+    { name: 'Succhi di Frutta', price: '€3.00', desc: 'Vari gusti selezionati' },
+    { name: 'Bibite', price: '€3.00', desc: 'Coca Cola, Sprite, Fanta, ecc.' },
+    { name: 'Acqua Naturale / Frizzante', price: '€1.50', desc: 'Bottiglia' }
   ],
-  gintoneria: [
-    { name: 'Classic G&T', price: '€8.00', desc: 'Tanqueray, Fever-Tree Indian, limone' },
-    { name: 'Floral G&T', price: '€10.00', desc: 'Hendrick\'s, elderflower tonic, cetriolo e rosa' },
-    { name: 'Mediterranean G&T', price: '€10.00', desc: 'Gin Mare, tonica rosmarino, olive e timo' },
-    { name: 'Japanese G&T', price: '€12.00', desc: 'Roku, yuzu tonic, zenzero e shiso' },
-    { name: 'Pink G&T', price: '€9.00', desc: 'Gordon\'s Pink, tonica, fragole e pepe rosa' },
-    { name: 'Smoky G&T', price: '€12.00', desc: 'Monkey 47, tonica affumicata, pompelmo bruciato' },
+  cibo: [
+    { section: "I Bruschettoni" },
+    { name: 'Guancia a Guancia', price: '€8.00', desc: 'Formaggio, granella di noci, crema di pecorino, guanciale' },
+    { name: 'Calabrese', price: '€7.50', desc: 'Passata di pomodoro, formaggio, pomodoro secco, salame piccante' },
+    { name: 'Mix Grill', price: '€6.50', desc: 'Passata di pomodoro, formaggio, verdure grigliate a pezzetti' },
+    { name: 'Margherita', price: '€5.50', desc: 'Passata di pomodoro, formaggio, basilico' },
+    { section: "Panini & Piadine" },
+    { name: 'Crudo, Brie, e Rucola', price: '€6.50', desc: 'Prosciutto crudo, formaggio brie, rucola fresca' },
+    { name: 'Speck, Brie e Patè di Olive', price: '€6.50', desc: 'Speck affumicato, brie morbido, patè di olive' },
+    { name: 'Tacchino, Rucola e Patè', price: '€6.00', desc: 'Fesa di tacchino, rucola, patè di olive' },
+    { name: 'Il Toast Farcito', price: '€5.00', desc: 'Toast classico farcito' },
+    { section: "I Taglieri" },
+    { name: 'Tagliere Regular', price: '€12.00', desc: 'Selezione di salumi e formaggi del territorio' },
+    { name: 'Tagliere XXL', price: '€20.00', desc: 'Ricca selezione di salumi, formaggi, e stuzzichini' },
   ],
 };
 
 const MenuSection = () => {
-  const [activeTab, setActiveTab] = useState('caffetteria');
+  const [activeTab, setActiveTab] = useState('alcolici');
   const tabs = [
-    { id: 'caffetteria', label: 'Caffetteria' },
-    { id: 'aperitivo', label: 'Aperitivo' },
-    { id: 'gintoneria', label: 'Gintoneria' },
+    { id: 'alcolici', label: 'Alcolici' },
+    { id: 'analcolici', label: 'Analcolici' },
+    { id: 'cibo', label: 'Food & Tapas' },
   ];
 
   return (
@@ -232,15 +257,24 @@ const MenuSection = () => {
         </div>
 
         <div className="menu-grid">
-          {menuData[activeTab].map((item, i) => (
-            <div key={`${activeTab}-${i}`} className="menu-card reveal">
-              <div className="menu-card-header">
-                <h3>{item.name}</h3>
-                <span className="price">{item.price}</span>
+          {menuData[activeTab].map((item, i) => {
+            if (item.section) {
+              return (
+                <div key={`${activeTab}-sec-${i}`} className="menu-section-title reveal">
+                  <h3>{item.section}</h3>
+                </div>
+              );
+            }
+            return (
+              <div key={`${activeTab}-${i}`} className="menu-card reveal">
+                <div className="menu-card-header">
+                  <h3>{item.name}</h3>
+                  <span className="price">{item.price}</span>
+                </div>
+                <p>{item.desc}</p>
               </div>
-              <p>{item.desc}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

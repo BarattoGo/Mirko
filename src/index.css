@@ -566,6 +566,35 @@ h3 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
   gap: 1.5rem;
 }
 
+.menu-section-title {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin: 2rem 0 1rem;
+  position: relative;
+}
+
+.menu-section-title h3 {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--color-accent);
+  display: inline-block;
+  padding: 0 1.5rem;
+  position: relative;
+  background-color: var(--color-bg);
+  z-index: 1;
+}
+
+.menu-section-title::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-border-light);
+  z-index: 0;
+}
+
 .menu-card {
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
