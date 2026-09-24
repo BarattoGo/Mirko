@@ -70,11 +70,11 @@ const Hero = () => {
       </div>
       <div className="hero-overlay" />
       <div className="hero-content">
-        <span className="label">Caffetteria &bull; Gintoneria</span>
+        <span className="label">Gintoneria e Cocktail bar</span>
         <h1>Shake <em>& Tonic</em></h1>
         <div className="hero-divider" />
         <p className="hero-subtitle">
-          Di giorno il tuo bar di fiducia. Di sera, la gintoneria che cercavi.
+          Il tuo locale di fiducia a Novara. Gintoneria e Cocktail bar d'autore.
         </p>
         <div className="hero-cta-group">
           <a href="#menu" className="btn btn-primary">Scopri il Menù</a>
@@ -260,13 +260,13 @@ const MenuSection = () => {
           {menuData[activeTab].map((item, i) => {
             if (item.section) {
               return (
-                <div key={`${activeTab}-sec-${i}`} className="menu-section-title reveal">
+                <div key={`${activeTab}-sec-${i}`} className="menu-section-title">
                   <h3>{item.section}</h3>
                 </div>
               );
             }
             return (
-              <div key={`${activeTab}-${i}`} className="menu-card reveal">
+              <div key={`${activeTab}-${i}`} className="menu-card">
                 <div className="menu-card-header">
                   <h3>{item.name}</h3>
                   <span className="price">{item.price}</span>
@@ -351,8 +351,8 @@ const Contact = () => (
           </div>
           <h3>Dove Siamo</h3>
           <p>
-            Via Roma, 42<br />
-            00100 — Città, IT
+            Via Galileo Galilei, 17<br />
+            28100 Novara (NO)
           </p>
         </div>
         <div className="contact-card reveal">
@@ -361,8 +361,8 @@ const Contact = () => (
           </div>
           <h3>Contattaci</h3>
           <p>
-            +39 333 123 4567<br />
-            info@bardamirko.it
+            +39 320 808 0834<br />
+            info@shakeandtonic.it
           </p>
         </div>
       </div>
@@ -380,8 +380,8 @@ const Footer = () => (
         <div className="footer-brand">
           <h3>Shake <span>&</span> Tonic</h3>
           <p>
-            Il tuo bar di fiducia di giorno, la gintoneria che
-            cercavi di sera. Ti aspettiamo.
+            Gintoneria e Cocktail bar. Il tuo punto di ritrovo
+            esclusivo a Novara.
           </p>
         </div>
         <div className="footer-col">
