@@ -25,9 +25,9 @@ const Navbar = () => {
         </Link>
         <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
           <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
-          <a href="/#contatti" onClick={() => setMenuOpen(false)}>Chi Siamo</a>
           <Link to="/menu" onClick={() => setMenuOpen(false)}>Menù</Link>
-          <a href="/#gintoneria" onClick={() => setMenuOpen(false)}>Gintoneria</a>
+          <Link to="/gintoneria" onClick={() => setMenuOpen(false)}>Gintoneria</Link>
+          <a href="/#contatti" onClick={() => setMenuOpen(false)}>Chi Siamo</a>
           <a href="/#contatti" onClick={() => setMenuOpen(false)}>Contatti</a>
         </div>
         <button
@@ -81,7 +81,7 @@ const Hero = () => {
         </p>
         <div className="hero-cta-group">
           <Link to="/menu" className="btn btn-primary">Scopri il Menù</Link>
-          <a href="#gintoneria" className="btn btn-outline">La Gintoneria</a>
+          <Link to="/gintoneria" className="btn btn-outline">La Gintoneria</Link>
         </div>
       </div>
     </header>
@@ -389,9 +389,10 @@ const Footer = () => (
         </div>
         <div className="footer-col">
           <h4>Naviga</h4>
-          <a href="/#contatti">Chi Siamo</a>
+          <Link to="/">Home</Link>
           <Link to="/menu">Menù</Link>
-          <a href="/#gintoneria">Gintoneria</a>
+          <Link to="/gintoneria">Gintoneria</Link>
+          <a href="/#contatti">Chi Siamo</a>
           <a href="/#contatti">Contatti</a>
         </div>
         <div className="footer-col">
@@ -438,7 +439,6 @@ const HomePage = () => (
     <Hero />
     <DualIdentity />
     <About />
-    <GinShowcase />
     <Contact />
   </>
 );
@@ -446,6 +446,12 @@ const HomePage = () => (
 const MenuPage = () => (
   <div style={{ paddingTop: '80px', minHeight: '80vh' }}>
     <MenuSection />
+  </div>
+);
+
+const GintoneriaPage = () => (
+  <div style={{ paddingTop: '80px', minHeight: '80vh' }}>
+    <GinShowcase />
   </div>
 );
 
@@ -491,6 +497,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/menu" element={<MenuPage />} />
+        <Route path="/gintoneria" element={<GintoneriaPage />} />
       </Routes>
       <Footer />
     </Router>
