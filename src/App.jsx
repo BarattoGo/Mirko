@@ -73,7 +73,7 @@ const Hero = () => {
       </div>
       <div className="hero-overlay" />
       <div className="hero-content">
-        <span className="label">Gintoneria e Cocktail bar</span>
+        <span className="label" style={{ color: '#ffffff' }}>Gintoneria e Cocktail bar</span>
         <h1>Shake <em>& Tonic</em></h1>
         <div className="hero-divider" />
         <p className="hero-subtitle">
@@ -89,39 +89,29 @@ const Hero = () => {
 };
 
 /* ============================================
-   DUAL IDENTITY SECTION
+   DUAL IDENTITY SECTION (TEXT ONLY)
    ============================================ */
 const DualIdentity = () => (
-  <section className="dual-section">
-    <div className="dual-card day">
-      <div className="dual-card-bg">
-        <img src="/hero-day.jpg" alt="Atmosfera diurna" />
-      </div>
-      <div className="dual-card-overlay" />
-      <div className="dual-card-content reveal">
+  <section className="section" style={{ paddingBottom: '2rem' }}>
+    <div className="container" style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
+      <div className="dual-text-card reveal" style={{ flex: '1', minWidth: '300px', padding: '3rem', background: 'var(--color-bg-elevated)', borderRadius: '1rem', border: '1px solid var(--color-border)' }}>
         <span className="label">
           <Sun size={14} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} />
           Di Giorno
         </span>
-        <h2>Caffetteria<br />& Bar</h2>
-        <p>
+        <h2 style={{ fontSize: '2rem', marginBottom: '1rem', fontFamily: 'var(--font-heading)' }}>Caffetteria & Bar</h2>
+        <p style={{ color: 'var(--color-text-muted)', lineHeight: '1.6' }}>
           Colazioni con cornetti appena sfornati, caffè selezionati,
           pranzi veloci e aperitivi al tramonto. Il tuo punto di riferimento.
         </p>
       </div>
-    </div>
-    <div className="dual-card night">
-      <div className="dual-card-bg">
-        <img src="/hero-night.jpg" alt="Atmosfera serale" />
-      </div>
-      <div className="dual-card-overlay" />
-      <div className="dual-card-content reveal">
+      <div className="dual-text-card reveal" style={{ flex: '1', minWidth: '300px', padding: '3rem', background: 'var(--color-bg-card)', borderRadius: '1rem', border: '1px solid var(--color-border)' }}>
         <span className="label">
           <Moon size={14} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} />
           Di Sera
         </span>
-        <h2>Gintoneria<br />d'Autore</h2>
-        <p>
+        <h2 style={{ fontSize: '2rem', marginBottom: '1rem', fontFamily: 'var(--font-heading)' }}>Gintoneria d'Autore</h2>
+        <p style={{ color: 'var(--color-text-muted)', lineHeight: '1.6' }}>
           Una selezione curata di gin premium, toniche artigianali
           e botaniche fresche. Ogni drink racconta una storia.
         </p>
@@ -437,6 +427,7 @@ const ScrollToAnchor = () => {
 const HomePage = () => (
   <>
     <Hero />
+    <DualIdentity />
     <About />
     <Contact />
   </>
