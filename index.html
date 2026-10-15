@@ -3,15 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/jpeg" href="/logo.jpg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shake & Tonic | Caffetteria di giorno, Gintoneria di sera</title>
-    <meta name="description" content="Shake & Tonic — Il tuo locale di fiducia a Novara. Gintoneria e Cocktail bar d'autore. Vieni a trovarci!" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#000000" />
+    <title>Shake &amp; Tonic | Gintoneria e Cocktail Bar a Novara</title>
+    <meta name="description" content="Shake & Tonic — Gintoneria e Cocktail bar d'autore a Novara. Oltre 30 gin premium, toniche artigianali, cocktail signature, colazioni e aperitivi. Via Galileo Galilei 17." />
     <meta property="og:title" content="Shake & Tonic | Gintoneria e Cocktail Bar" />
     <meta property="og:description" content="Gintoneria e Cocktail bar. Il tuo punto di ritrovo esclusivo a Novara." />
     <meta property="og:image" content="/logo.jpg" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="it_IT" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="image" href="/hero-day.jpg" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BarOrPub",
+        "name": "Shake & Tonic",
+        "description": "Gintoneria e Cocktail bar d'autore a Novara",
+        "image": "/logo.jpg",
+        "telephone": "+39 320 808 0834",
+        "email": "info@shakeandtonic.it",
+        "servesCuisine": ["Cocktail", "Gin Tonic", "Tapas"],
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Via Galileo Galilei, 17",
+          "addressLocality": "Novara",
+          "postalCode": "28100",
+          "addressRegion": "NO",
+          "addressCountry": "IT"
+        },
+        "openingHoursSpecification": [
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "06:30", "closes": "01:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday","Sunday"], "opens": "07:30", "closes": "02:00" }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
