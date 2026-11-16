@@ -19,14 +19,16 @@ export const CONTACT = {
 
 /* Orari: open/close in ore decimali. close > 24 = dopo mezzanotte */
 export const HOURS = [
-  { label: 'Lunedì — Venerdì', days: [1, 2, 3, 4, 5], open: 6.5, close: 25, text: '06:30 — 01:00' },
-  { label: 'Sabato — Domenica', days: [6, 0], open: 7.5, close: 26, text: '07:30 — 02:00' },
+  { label: 'Lunedì — Mercoledì', days: [1, 2, 3], open: 7, close: 22, text: '07:00 — 22:00' },
+  { label: 'Giovedì', days: [4], open: 7, close: 24, text: '07:00 — 00:00' },
+  { label: 'Venerdì — Sabato', days: [5, 6], open: 7, close: 25, text: '07:00 — 01:00' },
+  { label: 'Domenica', days: [0], open: 7, close: 13, text: '07:00 — 13:00' },
 ];
 
 export const MOODS = {
   day: {
     label: 'Di Giorno',
-    time: '06:30 — 18:00',
+    time: '07:00 — 18:00',
     title: 'Caffetteria',
     titleEm: '& Bar',
     desc: 'Colazioni con cornetti appena sfornati, caffè selezionati, pranzi veloci e aperitivi al tramonto. Il tuo punto di riferimento.',

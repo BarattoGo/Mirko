@@ -17,8 +17,9 @@ export const getOpenStatus = (now = new Date()) => {
   const yesterday = scheduleFor((day + 6) % 7);
 
   if (h < yesterday.close - 24) return { open: true, text: `Aperto ora · chiude alle ${fmt(yesterday.close)}` };
-  if (h >= today.open) return { open: true, text: `Aperto ora · chiude alle ${fmt(today.close)}` };
-  return { open: false, text: `Chiuso · apre alle ${fmt(today.open)}` };
+  if (h >= today.open && h < today.close) return { open: true, text: `Aperto ora · chiude alle ${fmt(today.close)}` };
+  const nextOpen = h < today.open ? today.open : scheduleFor((day + 1) % 7).open;
+  return { open: false, text: `Chiuso · apre alle ${fmt(nextOpen)}` };
 };
 
 export const useOpenStatus = () => {
