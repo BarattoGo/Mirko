@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { ArrowUp, ArrowUpRight } from 'lucide-react';
-import { CONTACT, HOURS, LEGAL } from '../data';
-import { reopenCookieConsent, trackEvent, useOpenStatus } from '../hooks';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Phone, Mail, MapPin, MessageCircle, Martini, X } from 'lucide-react';
+import { CONTACT, LEGAL } from '../data';
+import { trackEvent, useOpenStatus } from '../hooks';
 
 /* Ordine voci: Home, Menù, Gintoneria, Chi Siamo, Contatti */
 const LINKS_LEFT = [
@@ -113,104 +113,218 @@ export const Navbar = () => {
   );
 };
 
-/* ============ FOOTER ============ */
-export const Footer = () => {
-  const navigate = useNavigate();
-
-  const handleCookiePrefs = () => {
-    if (!reopenCookieConsent()) {
-      navigate('/cookie-policy');
-    }
-  };
-
-  const handleSocialClick = (e, url, network) => {
-    if (!url || url === '#') {
-      e.preventDefault();
-      return;
-    }
-    trackEvent('click_social', { network });
-  };
-
-  const legalDetails = [
-    LEGAL.companyName + (LEGAL.legalForm ? ` ${LEGAL.legalForm}` : ''),
-    LEGAL.legalAddress,
-    LEGAL.vatId ? `P.IVA ${LEGAL.vatId}` : null,
-    LEGAL.taxCode ? `C.F. ${LEGAL.taxCode}` : null,
-    LEGAL.rea ? `REA ${LEGAL.rea}` : null,
-    LEGAL.pec ? `PEC: ${LEGAL.pec}` : null,
-  ].filter(Boolean);
-
-  return (
-    <footer className="footer">
-      <div className="container">
-        <div className="footer-top">
-          <div className="footer-brand">
-            <Logo className="footer-logo" />
-            <p>Gintoneria e Cocktail bar. Il tuo punto di ritrovo esclusivo a Novara.</p>
-          </div>
-
-          <div className="footer-col">
-            <h4>Naviga</h4>
-            {ALL_LINKS.map((l) => <Link key={l.label} to={l.to}>{l.label}</Link>)}
-          </div>
-
-          <div className="footer-col">
-            <h4>Orari</h4>
-            {HOURS.map((h) => (
-              <p key={h.label}><span>{h.label}</span>{h.text}</p>
-            ))}
-          </div>
-
-          <div className="footer-col">
-            <h4>Dove siamo</h4>
-            <p>{CONTACT.address}<br />{CONTACT.city}</p>
-            <a href={CONTACT.phoneHref} onClick={() => trackEvent('click_phone', { location: 'footer' })}>{CONTACT.phone}</a>
-            <a href={`mailto:${CONTACT.email}`} onClick={() => trackEvent('click_email', { location: 'footer' })}>{CONTACT.email}</a>
-          </div>
+/* ============ FOOTER (stile compatto 2 colonne) ============ */
+export const Footer = () => (
+  <footer className="footer">
+    <div className="footer-accent-line" aria-hidden="true" />
+    <div className="container">
+      <div className="footer-compact-grid">
+        <div className="footer-compact-col">
+          <h4>SHAKE &amp; TONIC</h4>
+          <p className="footer-line"><strong>Titolare:</strong> {LEGAL.companyName}</p>
+          <p className="footer-line"><strong>P.IVA:</strong> {LEGAL.vatId}</p>
+          <p className="footer-line"><strong>Sede:</strong> {LEGAL.legalAddress}</p>
+          <p className="footer-copy">© {new Date().getFullYear()} Shake &amp; Tonic</p>
         </div>
 
-        <div className="footer-legal-bar">
-          <p className="footer-company-info">
-            {legalDetails.join(' · ')}
-          </p>
-          <nav className="footer-legal-links" aria-label="Informative legali">
-            <Link to="/privacy-policy">Privacy Policy</Link>
-            <Link to="/cookie-policy">Cookie Policy</Link>
-            <Link to="/termini-e-condizioni">Termini e Condizioni</Link>
-            <button type="button" className="footer-cookie-btn" onClick={handleCookiePrefs}>
-              Preferenze Cookie
-            </button>
-          </nav>
-        </div>
-
-        <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} Shake &amp; Tonic. Tutti i diritti riservati.</span>
-          <div className="footer-socials">
-            <a
-              href={CONTACT.instagram}
-              target={CONTACT.instagram !== '#' ? '_blank' : undefined}
-              rel={CONTACT.instagram !== '#' ? 'noopener noreferrer' : undefined}
-              onClick={(e) => handleSocialClick(e, CONTACT.instagram, 'instagram')}
-              aria-label="Instagram"
-            >
-              Instagram <ArrowUpRight size={14} />
-            </a>
-            <a
-              href={CONTACT.facebook}
-              target={CONTACT.facebook !== '#' ? '_blank' : undefined}
-              rel={CONTACT.facebook !== '#' ? 'noopener noreferrer' : undefined}
-              onClick={(e) => handleSocialClick(e, CONTACT.facebook, 'facebook')}
-              aria-label="Facebook"
-            >
-              Facebook <ArrowUpRight size={14} />
-            </a>
-            <button id="back-to-top" className="back-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Torna su">
-              <ArrowUp size={16} />
-            </button>
-          </div>
+        <div className="footer-compact-col">
+          <h4>CONTATTI</h4>
+          <a
+            href={CONTACT.phoneHref}
+            onClick={() => trackEvent('click_phone', { location: 'footer' })}
+            className="footer-contact-item"
+          >
+            <Phone size={15} />
+            <span>{CONTACT.phone}</span>
+          </a>
+          <a
+            href={`mailto:${CONTACT.email}`}
+            onClick={() => trackEvent('click_email', { location: 'footer' })}
+            className="footer-contact-item"
+          >
+            <Mail size={15} />
+            <span>{CONTACT.email}</span>
+          </a>
+          <a
+            href={CONTACT.mapsLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackEvent('click_directions', { location: 'footer' })}
+            className="footer-contact-item"
+          >
+            <MapPin size={15} />
+            <span>{CONTACT.address}, {CONTACT.city}</span>
+          </a>
         </div>
       </div>
-    </footer>
+
+      <div className="footer-compact-bottom">
+        <nav className="footer-policy-links" aria-label="Informative legali">
+          <Link to="/privacy-policy">Privacy Policy</Link>
+          <span className="footer-sep" aria-hidden="true">|</span>
+          <Link to="/cookie-policy">Cookie Policy</Link>
+          <span className="footer-sep" aria-hidden="true">|</span>
+          <Link to="/termini-e-condizioni">Termini e Condizioni</Link>
+        </nav>
+      </div>
+    </div>
+  </footer>
+);
+
+/* ============ PULSANTE FISSO + MINI-SCHEDA PRENOTA ============ */
+const BOOKING_DAYS = ['Stasera', 'Domani', 'Venerdì', 'Sabato', 'Altro giorno'];
+const BOOKING_SLOTS = [
+  { id: 'aperitivo', label: 'Aperitivo', time: '18:30 – 20:30' },
+  { id: 'dopocena', label: 'Dopocena', time: '21:30 – 23:30' },
+  { id: 'giorno', label: 'Pranzo / Caffè', time: '12:00 – 15:00' },
+];
+const BOOKING_GUESTS = ['2', '3', '4', '5', '6+'];
+
+export const BookingWidget = () => {
+  const [open, setOpen] = useState(false);
+  const [day, setDay] = useState(BOOKING_DAYS[0]);
+  const [slot, setSlot] = useState(BOOKING_SLOTS[0]);
+  const [guests, setGuests] = useState('2');
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
+
+  const message = `Ciao Shake & Tonic! Vorrei prenotare un tavolo per ${guests} persone (${day} · ${slot.label} ${slot.time}). Grazie!`;
+  const whatsappUrl = `${CONTACT.whatsapp}?text=${encodeURIComponent(message)}`;
+
+  const handleSendWhatsApp = () => {
+    trackEvent('booking_whatsapp', {
+      booking_day: day,
+      booking_slot: slot.id,
+      booking_guests: guests,
+    });
+    setOpen(false);
+  };
+
+  return (
+    <div className={`booking-widget ${open ? 'is-open' : ''}`}>
+      {open && (
+        <div
+          className="booking-backdrop"
+          onClick={() => setOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
+      <div
+        id="booking-popover"
+        className={`booking-card glass ${open ? 'open' : ''}`}
+        role="dialog"
+        aria-modal="false"
+        aria-label="Prenota un tavolo"
+        aria-hidden={!open}
+        inert={!open ? '' : undefined}
+      >
+        <div className="booking-card-head">
+          <div>
+            <span className="label">Prenotazione Rapida</span>
+            <h3>Prenota un <em>tavolo</em></h3>
+          </div>
+          <button
+            type="button"
+            className="booking-close"
+            onClick={() => setOpen(false)}
+            aria-label="Chiudi scheda prenotazione"
+          >
+            <X size={16} />
+          </button>
+        </div>
+
+        <div className="booking-field">
+          <span className="booking-field-label">Quando</span>
+          <div className="booking-chips">
+            {BOOKING_DAYS.map((d) => (
+              <button
+                key={d}
+                type="button"
+                className={`booking-chip ${day === d ? 'active' : ''}`}
+                onClick={() => setDay(d)}
+              >
+                {d}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="booking-field">
+          <span className="booking-field-label">Momento</span>
+          <div className="booking-slots">
+            {BOOKING_SLOTS.map((s) => (
+              <button
+                key={s.id}
+                type="button"
+                className={`booking-slot ${slot.id === s.id ? 'active' : ''}`}
+                onClick={() => setSlot(s)}
+              >
+                <strong>{s.label}</strong>
+                <small>{s.time}</small>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="booking-field">
+          <span className="booking-field-label">Persone</span>
+          <div className="booking-guests">
+            {BOOKING_GUESTS.map((g) => (
+              <button
+                key={g}
+                type="button"
+                className={`booking-guest ${guests === g ? 'active' : ''}`}
+                onClick={() => setGuests(g)}
+              >
+                {g}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="booking-actions">
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={handleSendWhatsApp}
+            className="btn btn-primary booking-submit"
+          >
+            <MessageCircle size={15} /> Invia su WhatsApp
+          </a>
+          <a
+            href={CONTACT.phoneHref}
+            onClick={() => {
+              trackEvent('click_phone', { location: 'booking_widget' });
+              setOpen(false);
+            }}
+            className="btn btn-outline booking-call"
+          >
+            <Phone size={14} /> Chiama
+          </a>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        id="floating-book-btn"
+        className={`booking-fab ${open ? 'active' : ''}`}
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-controls="booking-popover"
+      >
+        {open ? <X size={18} /> : <Martini size={17} />}
+        <span>Prenota</span>
+      </button>
+    </div>
   );
 };
 

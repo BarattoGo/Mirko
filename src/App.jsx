@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, useLocation, Link } from 'react-router-dom';
-import { Navbar, Footer, CursorGlow, ScrollManager } from './components/Layout';
+import { Navbar, Footer, BookingWidget, CursorGlow, ScrollManager } from './components/Layout';
 import { PAGE_SEO } from './data';
 import { usePageSEO } from './hooks';
 import HomePage from './pages/Home';
@@ -46,6 +46,7 @@ function App() {
       <Navbar />
       <AnimatedRoutes />
       <Footer />
+      <BookingWidget />
     </Router>
   );
 }
