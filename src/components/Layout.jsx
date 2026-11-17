@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { Phone, Mail, MapPin, MessageCircle, Martini, X } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageCircle, CalendarCheck, X } from 'lucide-react';
 import { CONTACT, LEGAL } from '../data';
-import { trackEvent, useOpenStatus } from '../hooks';
+import { openBookingModal, trackEvent, useOpenStatus } from '../hooks';
 
 /* Ordine voci: Home, Menù, Gintoneria, Chi Siamo, Contatti */
 const LINKS_LEFT = [
@@ -75,6 +75,17 @@ export const Navbar = () => {
           <div className="nav-side nav-right">
             {LINKS_RIGHT.map((l) => <NavItem key={l.label} link={l} />)}
             <button
+              type="button"
+              className="nav-book-btn"
+              onClick={() => {
+                setOpen(false);
+                openBookingModal();
+              }}
+            >
+              <CalendarCheck size={14} />
+              <span>Prenota</span>
+            </button>
+            <button
               id="nav-toggle"
               className={`nav-hamburger ${open ? 'is-open' : ''}`}
               onClick={() => setOpen(!open)}
@@ -93,7 +104,6 @@ export const Navbar = () => {
         id="mobile-navigation"
         className={`mobile-menu ${open ? 'open' : ''}`}
         aria-hidden={!open}
-        inert={!open ? '' : undefined}
       >
         <div className="mobile-menu-glow" />
         <ul className="mobile-menu-links">
@@ -104,6 +114,18 @@ export const Navbar = () => {
             </li>
           ))}
         </ul>
+        <div className="mobile-menu-cta">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => {
+              setOpen(false);
+              openBookingModal();
+            }}
+          >
+            <CalendarCheck size={16} /> Prenota un tavolo
+          </button>
+        </div>
         <div className="mobile-menu-footer">
           <span className={`status-dot ${status.open ? 'is-open' : ''}`} />
           <span>{status.text}</span>
@@ -171,7 +193,7 @@ export const Footer = () => (
   </footer>
 );
 
-/* ============ PULSANTE FISSO + MINI-SCHEDA PRENOTA ============ */
+/* ============ MODALE PRENOTAZIONE RAPIDA (montato nel DOM solo quando aperto) ============ */
 const BOOKING_DAYS = ['Stasera', 'Domani', 'Venerdì', 'Sabato', 'Altro giorno'];
 const BOOKING_SLOTS = [
   { id: 'aperitivo', label: 'Aperitivo', time: '18:30 – 20:30' },
@@ -187,6 +209,12 @@ export const BookingWidget = () => {
   const [guests, setGuests] = useState('2');
 
   useEffect(() => {
+    const onOpen = () => setOpen(true);
+    window.addEventListener('open-booking-modal', onOpen);
+    return () => window.removeEventListener('open-booking-modal', onOpen);
+  }, []);
+
+  useEffect(() => {
     if (!open) return;
     const onKey = (e) => {
       if (e.key === 'Escape') setOpen(false);
@@ -194,6 +222,8 @@ export const BookingWidget = () => {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [open]);
+
+  if (!open) return null;
 
   const message = `Ciao Shake & Tonic! Vorrei prenotare un tavolo per ${guests} persone (${day} · ${slot.label} ${slot.time}). Grazie!`;
   const whatsappUrl = `${CONTACT.whatsapp}?text=${encodeURIComponent(message)}`;
@@ -208,23 +238,14 @@ export const BookingWidget = () => {
   };
 
   return (
-    <div className={`booking-widget ${open ? 'is-open' : ''}`}>
-      {open && (
-        <div
-          className="booking-backdrop"
-          onClick={() => setOpen(false)}
-          aria-hidden="true"
-        />
-      )}
-
+    <div className="booking-modal-overlay" onClick={() => setOpen(false)}>
       <div
         id="booking-popover"
-        className={`booking-card glass ${open ? 'open' : ''}`}
+        className="booking-card glass"
         role="dialog"
-        aria-modal="false"
+        aria-modal="true"
         aria-label="Prenota un tavolo"
-        aria-hidden={!open}
-        inert={!open ? '' : undefined}
+        onClick={(e) => e.stopPropagation()}
       >
         <div className="booking-card-head">
           <div>
@@ -312,18 +333,6 @@ export const BookingWidget = () => {
           </a>
         </div>
       </div>
-
-      <button
-        type="button"
-        id="floating-book-btn"
-        className={`booking-fab ${open ? 'active' : ''}`}
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        aria-controls="booking-popover"
-      >
-        {open ? <X size={18} /> : <Martini size={17} />}
-        <span>Prenota</span>
-      </button>
     </div>
   );
 };

@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Clock, MapPin, Phone, Mail, MessageCircle, Navigation, ArrowRight,
-  Citrus, Flower2, Martini, Leaf, Flame, Cherry, Sparkles, ShieldCheck,
+  Citrus, Flower2, Martini, Leaf, Flame, Cherry, Sparkles, ShieldCheck, CalendarCheck,
 } from 'lucide-react';
 import { CONTACT, HOURS, RITUAL, GIN_PROFILES } from '../data';
-import { trackEvent, useCountUp, useMapConsent, useOpenStatus } from '../hooks';
+import { openBookingModal, trackEvent, useCountUp, useMapConsent, useOpenStatus } from '../hooks';
 
 /* ============ HEADING DI SEZIONE ============ */
 export const SectionHeading = ({ label, title, em, text, align = 'center' }) => (
@@ -224,11 +224,19 @@ export const Contact = () => {
             </div>
 
             <div className="contact-actions">
+              <button
+                type="button"
+                id="cta-book"
+                onClick={openBookingModal}
+                className="btn btn-primary"
+              >
+                <CalendarCheck size={15} /> Prenota un tavolo
+              </button>
               <a
                 id="cta-call"
                 href={CONTACT.phoneHref}
                 onClick={() => trackEvent('click_phone', { location: 'contact_cta' })}
-                className="btn btn-primary"
+                className="btn btn-outline"
               >
                 <Phone size={15} /> Chiama
               </a>

@@ -199,3 +199,11 @@ export const reopenCookieConsent = () => {
   }
   return false;
 };
+
+/* Evento custom per aprire il modale Prenota da qualsiasi pulsante del sito */
+export const openBookingModal = () => {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('open-booking-modal'));
+  }
+};
+
