@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Sun, Moon, ArrowRight, ArrowDown } from 'lucide-react';
+import { Sun, Moon, ArrowRight, ArrowDown, CalendarCheck } from 'lucide-react';
 import { MOODS, SIGNATURES, CONTACT, PAGE_SEO } from '../data';
-import { useOpenStatus, usePageSEO } from '../hooks';
+import { openBookingModal, usePageSEO } from '../hooks';
 import { Counter, CtaBanner, Contact, SectionHeading } from '../components/Sections';
 
 /* ============ HERO ============ */
 const Hero = () => {
   const [night, setNight] = useState(false);
-  const status = useOpenStatus();
 
   useEffect(() => {
     const t = setInterval(() => setNight((n) => !n), 6000);
@@ -39,10 +38,15 @@ const Hero = () => {
       <div className="orb orb-a" />
 
       <div className="hero-content">
-        <div className={`status-pill glass hero-anim ${status.open ? 'is-open' : ''}`} style={{ '--d': '0.1s' }}>
-          <span className={`status-dot ${status.open ? 'is-open' : ''}`} />
-          {status.text}
-        </div>
+        <button
+          type="button"
+          onClick={openBookingModal}
+          className="status-pill hero-book-pill glass hero-anim"
+          style={{ '--d': '0.1s' }}
+        >
+          <CalendarCheck size={14} />
+          Prenota un tavolo
+        </button>
         <span className="label label-white hero-anim" style={{ '--d': '0.25s' }}>Gintoneria e Cocktail bar</span>
         <h1 className="hero-title hero-anim" style={{ '--d': '0.4s' }}>
           Shake <em>&amp;</em> Tonic

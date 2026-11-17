@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Phone, Mail, MapPin, MessageCircle, CalendarCheck, X } from 'lucide-react';
 import { CONTACT, LEGAL } from '../data';
-import { openBookingModal, trackEvent, useOpenStatus } from '../hooks';
+import { openBookingModal, trackEvent } from '../hooks';
 
 /* Ordine voci: Home, Menù, Gintoneria, Chi Siamo, Contatti */
 const LINKS_LEFT = [
@@ -35,7 +35,6 @@ export const Logo = ({ className = '' }) => (
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const status = useOpenStatus();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -125,10 +124,6 @@ export const Navbar = () => {
           >
             <CalendarCheck size={16} /> Prenota un tavolo
           </button>
-        </div>
-        <div className="mobile-menu-footer">
-          <span className={`status-dot ${status.open ? 'is-open' : ''}`} />
-          <span>{status.text}</span>
         </div>
       </div>
     </>
