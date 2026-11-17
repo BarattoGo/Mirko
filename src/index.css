@@ -267,35 +267,59 @@ h1 em, h2 em, h3 em { font-style: italic; font-weight: 300; color: var(--violet-
 /* ============ BUTTONS ============ */
 .btn {
   position: relative;
-  display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
-  padding: 1rem 2.1rem;
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem;
+  padding: 1rem 2rem;
   border-radius: 100px;
   font-family: var(--font-body);
   font-size: 0.74rem; font-weight: 600;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  transition: all 0.5s var(--ease);
-  overflow: hidden;
-  isolation: isolate;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  transition: transform 0.35s var(--ease), background 0.35s var(--ease), border-color 0.35s var(--ease), color 0.35s var(--ease), box-shadow 0.35s var(--ease);
   white-space: nowrap;
 }
-.btn::before {
-  content: ''; position: absolute; inset: 0; z-index: -1;
-  transform: translateY(101%);
-  transition: transform 0.5s var(--ease);
+
+.btn-primary {
+  background: var(--violet);
+  color: #12061d;
+  border: 1px solid var(--violet);
+  box-shadow: 0 10px 40px -10px var(--violet-glow);
 }
-.btn:hover::before { transform: translateY(0); }
+@media (hover: hover) {
+  .btn-primary:hover {
+    background: var(--violet-light);
+    border-color: var(--violet-light);
+    color: #12061d;
+    transform: translateY(-2px);
+    box-shadow: 0 18px 50px -12px var(--violet-glow);
+  }
+}
 
-.btn-primary { background: var(--violet); color: #12061d; box-shadow: 0 10px 40px -10px var(--violet-glow); }
-.btn-primary::before { background: var(--white); }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 18px 50px -12px var(--violet-glow); }
+.btn-outline {
+  background: rgba(178, 102, 255, 0.06);
+  border: 1px solid rgba(178, 102, 255, 0.38);
+  color: var(--white);
+}
+@media (hover: hover) {
+  .btn-outline:hover {
+    background: rgba(178, 102, 255, 0.22);
+    border-color: var(--violet);
+    color: var(--white);
+    transform: translateY(-2px);
+  }
+}
 
-.btn-outline { border: 1px solid var(--line-2); color: var(--white); }
-.btn-outline::before { background: var(--white); }
-.btn-outline:hover { color: #12061d; border-color: var(--white); transform: translateY(-2px); }
-
-.btn-light { background: var(--white); color: #12061d; }
-.btn-light::before { background: var(--violet-light); }
-.btn-light:hover { transform: translateY(-2px); }
+.btn-light {
+  background: var(--white);
+  color: #12061d;
+  border: 1px solid var(--white);
+}
+@media (hover: hover) {
+  .btn-light:hover {
+    background: var(--violet-light);
+    border-color: var(--violet-light);
+    color: #12061d;
+    transform: translateY(-2px);
+  }
+}
 
 .link-arrow {
   display: inline-flex; align-items: center; gap: 0.6rem;
@@ -740,7 +764,8 @@ h1 em, h2 em, h3 em { font-style: italic; font-weight: 300; color: var(--violet-
    ============================================ */
 .contact-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(2rem, 5vw, 4rem); align-items: stretch; }
 .contact-info { display: flex; flex-direction: column; gap: 2rem; }
-.contact-info .status-pill { align-self: flex-start; }
+.contact-info .status-pill,
+.contact-book-btn { align-self: flex-start; }
 .contact-block { display: flex; gap: 1.3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--line); }
 .contact-icon {
   width: 48px; height: 48px; flex-shrink: 0;
@@ -757,8 +782,19 @@ h1 em, h2 em, h3 em { font-style: italic; font-weight: 300; color: var(--violet-
 .hours-list li { display: flex; justify-content: space-between; gap: 2rem; color: var(--muted); font-weight: 300; }
 .hours-list li.today { color: var(--white); font-weight: 500; }
 .hours-list li.today span:first-child::after { content: ' · oggi'; color: var(--violet); font-size: 0.8em; }
-.contact-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
-.contact-actions .btn { padding: 0.9rem 1.5rem; }
+.contact-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  width: 100%;
+}
+.contact-actions .btn {
+  width: 100%;
+  padding: 0.9rem 0.75rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  gap: 0.45rem;
+}
 
 .contact-map {
   position: relative;
@@ -1425,7 +1461,8 @@ h1 em, h2 em, h3 em { font-style: italic; font-weight: 300; color: var(--violet-
   .matcher-chip { padding: 0.75rem 1.1rem; font-size: 0.7rem; }
   .matcher-recipe div { grid-template-columns: 90px 1fr; }
   .menu-item h3 { font-size: 1.25rem; }
-  .contact-actions .btn { flex: 1; }
+  .contact-actions { grid-template-columns: 1fr; }
+  .contact-book-btn { width: 100%; }
   .hours-list { min-width: 0; }
   .hours-list li { gap: 1rem; font-size: 0.9rem; }
 }

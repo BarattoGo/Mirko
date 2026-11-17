@@ -5,7 +5,7 @@ import {
   Citrus, Flower2, Martini, Leaf, Flame, Cherry, Sparkles, ShieldCheck, CalendarCheck,
 } from 'lucide-react';
 import { CONTACT, HOURS, RITUAL, GIN_PROFILES } from '../data';
-import { openBookingModal, trackEvent, useCountUp, useMapConsent, useOpenStatus } from '../hooks';
+import { openBookingModal, trackEvent, useCountUp, useMapConsent } from '../hooks';
 
 /* ============ HEADING DI SEZIONE ============ */
 export const SectionHeading = ({ label, title, em, text, align = 'center' }) => (
@@ -174,7 +174,6 @@ export const CtaBanner = ({ label, title, em, text, to, cta }) => (
 
 /* ============ CONTATTI ============ */
 export const Contact = () => {
-  const status = useOpenStatus();
   const { mapAllowed, grantMapConsent } = useMapConsent();
   const today = new Date().getDay();
 
@@ -185,10 +184,14 @@ export const Contact = () => {
 
         <div className="contact-grid">
           <div className="contact-info reveal">
-            <div className={`status-pill ${status.open ? 'is-open' : ''}`}>
-              <span className={`status-dot ${status.open ? 'is-open' : ''}`} />
-              {status.text}
-            </div>
+            <button
+              type="button"
+              id="cta-book"
+              onClick={openBookingModal}
+              className="btn btn-primary contact-book-btn"
+            >
+              <CalendarCheck size={16} /> Prenota un tavolo
+            </button>
 
             <div className="contact-block">
               <div className="contact-icon"><Clock size={20} strokeWidth={1.5} /></div>
@@ -224,19 +227,11 @@ export const Contact = () => {
             </div>
 
             <div className="contact-actions">
-              <button
-                type="button"
-                id="cta-book"
-                onClick={openBookingModal}
-                className="btn btn-primary"
-              >
-                <CalendarCheck size={15} /> Prenota un tavolo
-              </button>
               <a
                 id="cta-call"
                 href={CONTACT.phoneHref}
                 onClick={() => trackEvent('click_phone', { location: 'contact_cta' })}
-                className="btn btn-outline"
+                className="btn btn-primary"
               >
                 <Phone size={15} /> Chiama
               </a>
