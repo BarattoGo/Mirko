@@ -1,8 +1,36 @@
 /* ============================================
-   CONTENUTI — Shake & Tonic
-   Tutti i testi del sito in un unico posto,
-   così il cliente può aggiornarli facilmente.
+   CONTENUTI & CONFIGURAZIONE — Shake & Tonic
+   Tutti i testi, i dati fiscali/legali e i meta SEO
+   del sito in un unico posto.
    ============================================ */
+
+export const SITE = {
+  name: 'Shake & Tonic',
+  /* TODO: verificare/aggiornare con il dominio definitivo di produzione (senza slash finale) */
+  url: 'https://www.shakeandtonic.it',
+  locale: 'it_IT',
+  priceRange: '€€',
+  geo: {
+    latitude: 45.4384,
+    longitude: 8.6186,
+  },
+  /* TODO: inserire l'ID di Google Analytics 4 (es. 'G-XXXXXXXXXX') quando disponibile */
+  gaMeasurementId: '',
+};
+
+/* Dati fiscali e societari del Titolare (Footer, Privacy Policy e Note Legali) */
+export const LEGAL = {
+  companyName: 'Shake & Tonic di Carchidi D.',
+  legalForm: '',
+  legalAddress: 'Via Galileo Galilei, 13 — 28100 Novara (NO)',
+  vatId: '02824220038',
+  taxCode: '',
+  rea: '',
+  pec: '',
+  shareCapital: '',
+  privacyEmail: 'info@shakeandtonic.it',
+  lastUpdated: '17 novembre 2026',
+};
 
 export const CONTACT = {
   address: 'Via Galileo Galilei, 17',
@@ -13,8 +41,61 @@ export const CONTACT = {
   email: 'info@shakeandtonic.it',
   mapsLink: 'https://www.google.com/maps/search/?api=1&query=Via+Galileo+Galilei+17+28100+Novara',
   mapsEmbed: 'https://www.google.com/maps?q=Via+Galileo+Galilei+17,+28100+Novara&output=embed',
+  /* TODO: sostituire '#' con gli URL reali dei profili social */
   instagram: '#',
   facebook: '#',
+};
+
+/* Meta SEO per ciascuna pagina */
+export const PAGE_SEO = {
+  home: {
+    title: 'Shake & Tonic | Gintoneria e Cocktail Bar a Novara',
+    description:
+      "Shake & Tonic — Gintoneria e Cocktail bar d'autore a Novara in Via Galileo Galilei 17. Oltre 30 gin premium, toniche artigianali, cocktail signature, colazioni e aperitivi.",
+    path: '/',
+    image: '/logo.jpg',
+  },
+  menu: {
+    title: 'Il Menù | Cocktail, Analcolici e Tapas — Shake & Tonic Novara',
+    description:
+      'Scopri il menù di Shake & Tonic a Novara: cocktail classici e signature, vini e bollicine, mocktail analcolici, bruschettoni, panini, piadine e taglieri.',
+    path: '/menu',
+    image: '/gin-tonic.jpg',
+  },
+  gintoneria: {
+    title: 'La Gintoneria | Oltre 30 Gin & Matcher — Shake & Tonic Novara',
+    description:
+      "La Gintoneria d'autore di Shake & Tonic a Novara: oltre 30 etichette di gin selezionati, 12 toniche artigianali, botaniche fresche e il Gin & Tonic Matcher.",
+    path: '/gintoneria',
+    image: '/hero-night.jpg',
+  },
+  privacy: {
+    title: 'Privacy Policy | Shake & Tonic Novara',
+    description:
+      'Informativa sul trattamento dei dati personali ai sensi dell’art. 13 del Regolamento UE 2016/679 (GDPR) per gli utenti del sito Shake & Tonic.',
+    path: '/privacy-policy',
+    noindex: true,
+  },
+  cookie: {
+    title: 'Cookie Policy | Shake & Tonic Novara',
+    description:
+      'Informativa sull’utilizzo dei cookie tecnici, analitici e di terze parti sul sito web di Shake & Tonic a Novara.',
+    path: '/cookie-policy',
+    noindex: true,
+  },
+  terms: {
+    title: 'Termini e Condizioni | Note Legali — Shake & Tonic Novara',
+    description:
+      'Termini e condizioni di utilizzo del sito web e note legali di Shake & Tonic a Novara.',
+    path: '/termini-e-condizioni',
+    noindex: true,
+  },
+  notFound: {
+    title: 'Pagina non trovata (404) | Shake & Tonic Novara',
+    description: 'La pagina richiesta non è disponibile su Shake & Tonic Novara.',
+    path: '/404',
+    noindex: true,
+  },
 };
 
 /* Orari: open/close in ore decimali. close > 24 = dopo mezzanotte */

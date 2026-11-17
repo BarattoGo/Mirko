@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Sun, Moon, ArrowRight, ArrowDown } from 'lucide-react';
-import { MOODS, SIGNATURES, CONTACT } from '../data';
-import { useOpenStatus, usePageTitle } from '../hooks';
+import { MOODS, SIGNATURES, CONTACT, PAGE_SEO } from '../data';
+import { useOpenStatus, usePageSEO } from '../hooks';
 import { Counter, CtaBanner, Contact, SectionHeading } from '../components/Sections';
 
 /* ============ HERO ============ */
@@ -18,8 +18,22 @@ const Hero = () => {
   return (
     <header className="hero">
       <div className="hero-bg">
-        <img src="/hero-day.jpg" alt="Shake & Tonic di giorno" className={night ? '' : 'active'} />
-        <img src="/hero-night.jpg" alt="Shake & Tonic di sera" className={night ? 'active' : ''} />
+        <img
+          src="/hero-day.jpg"
+          alt="Bancone e sala di Shake & Tonic a Novara di giorno"
+          width="1376"
+          height="768"
+          fetchPriority="high"
+          className={night ? '' : 'active'}
+        />
+        <img
+          src="/hero-night.jpg"
+          alt="Atmosfera serale e cocktail bar da Shake & Tonic a Novara"
+          width="1376"
+          height="768"
+          decoding="async"
+          className={night ? 'active' : ''}
+        />
       </div>
       <div className="hero-overlay" />
       <div className="orb orb-a" />
@@ -44,7 +58,7 @@ const Hero = () => {
 
       <div className="hero-bottom">
         <span>{CONTACT.address} · Novara</span>
-        <a href="#manifesto" className="scroll-hint" aria-label="Scorri">
+        <a href="#manifesto" className="scroll-hint" aria-label="Scorri ai contenuti">
           <span className="scroll-line" />
           <ArrowDown size={14} />
         </a>
@@ -120,7 +134,14 @@ const About = () => (
       <div className="about-grid">
         <div className="about-image reveal">
           <div className="about-frame" />
-          <img src="/gin-tonic.jpg" alt="Gin Tonic d'autore servito da Shake & Tonic" loading="lazy" />
+          <img
+            src="/gin-tonic.jpg"
+            alt="Gin Tonic d'autore servito in calice balloon da Shake & Tonic a Novara"
+            width="1024"
+            height="1024"
+            loading="lazy"
+            decoding="async"
+          />
           <div className="about-badge glass">
             <span>Signature</span>
             <strong>Gin &amp; Tonic</strong>
@@ -188,7 +209,7 @@ const Signatures = () => (
 );
 
 const HomePage = () => {
-  usePageTitle('Shake & Tonic | Gintoneria e Cocktail Bar a Novara');
+  usePageSEO(PAGE_SEO.home);
   return (
     <>
       <Hero />

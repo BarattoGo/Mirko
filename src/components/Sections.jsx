@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Clock, MapPin, Phone, Mail, MessageCircle, Navigation, ArrowRight,
-  Citrus, Flower2, Martini, Leaf, Flame, Cherry, Sparkles,
+  Citrus, Flower2, Martini, Leaf, Flame, Cherry, Sparkles, ShieldCheck,
 } from 'lucide-react';
 import { CONTACT, HOURS, RITUAL, GIN_PROFILES } from '../data';
-import { useCountUp, useOpenStatus } from '../hooks';
+import { trackEvent, useCountUp, useMapConsent, useOpenStatus } from '../hooks';
 
 /* ============ HEADING DI SEZIONE ============ */
 export const SectionHeading = ({ label, title, em, text, align = 'center' }) => (
@@ -21,7 +21,7 @@ export const PageHero = ({ label, title, em, text, image, id }) => (
   <header className={`page-hero ${image ? 'has-image' : ''}`} id={id}>
     {image && (
       <div className="page-hero-bg">
-        <img src={image} alt="" />
+        <img src={image} alt="" width="1376" height="768" decoding="async" />
       </div>
     )}
     <div className="page-hero-overlay" />
@@ -97,6 +97,7 @@ export const GinMatcher = () => {
                 id={`matcher-${g.id}`}
                 role="tab"
                 aria-selected={active === g.id}
+                aria-controls="matcher-panel"
                 className={`matcher-chip ${active === g.id ? 'active' : ''}`}
                 onClick={() => setActive(g.id)}
               >
@@ -108,38 +109,45 @@ export const GinMatcher = () => {
         </div>
 
         <div className="reveal">
-        <div className="matcher-result" key={p.id} data-profile={p.id}>
-          <div className="matcher-result-main">
-            <span className="label"><Sparkles size={13} /> Il tuo abbinamento</span>
-            <h3>{p.title}</h3>
-            <p className="matcher-desc">{p.desc}</p>
+          <div
+            id="matcher-panel"
+            role="tabpanel"
+            aria-labelledby={`matcher-${p.id}`}
+            className="matcher-result"
+            key={p.id}
+            data-profile={p.id}
+          >
+            <div className="matcher-result-main">
+              <span className="label"><Sparkles size={13} /> Il tuo abbinamento</span>
+              <h3>{p.title}</h3>
+              <p className="matcher-desc">{p.desc}</p>
 
-            <dl className="matcher-recipe">
-              <div><dt>Gin</dt><dd>{p.gin}</dd></div>
-              <div><dt>Tonica</dt><dd>{p.tonic}</dd></div>
-              <div><dt>Garnish</dt><dd>{p.garnish}</dd></div>
-            </dl>
-          </div>
-
-          <div className="matcher-result-side">
-            <div className="matcher-glass" aria-hidden="true">
-              <div className="glass-bowl">
-                <div className="glass-liquid" />
-                <span className="bubble b1" /><span className="bubble b2" /><span className="bubble b3" /><span className="bubble b4" />
-              </div>
-              <div className="glass-stem" />
-              <div className="glass-base" />
+              <dl className="matcher-recipe">
+                <div><dt>Gin</dt><dd>{p.gin}</dd></div>
+                <div><dt>Tonica</dt><dd>{p.tonic}</dd></div>
+                <div><dt>Garnish</dt><dd>{p.garnish}</dd></div>
+              </dl>
             </div>
-            <div className="matcher-scales">
-              {Object.entries(p.scale).map(([k, v]) => (
-                <div key={k} className="scale-row">
-                  <div className="scale-head"><span>{SCALE_LABELS[k]}</span><span>{v}%</span></div>
-                  <div className="scale-track"><div className="scale-fill" style={{ '--w': `${v}%` }} /></div>
+
+            <div className="matcher-result-side">
+              <div className="matcher-glass" aria-hidden="true">
+                <div className="glass-bowl">
+                  <div className="glass-liquid" />
+                  <span className="bubble b1" /><span className="bubble b2" /><span className="bubble b3" /><span className="bubble b4" />
                 </div>
-              ))}
+                <div className="glass-stem" />
+                <div className="glass-base" />
+              </div>
+              <div className="matcher-scales">
+                {Object.entries(p.scale).map(([k, v]) => (
+                  <div key={k} className="scale-row">
+                    <div className="scale-head"><span>{SCALE_LABELS[k]}</span><span>{v}%</span></div>
+                    <div className="scale-track"><div className="scale-fill" style={{ '--w': `${v}%` }} /></div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
         </div>
         <p className="matcher-note">Abbinamenti indicativi: la nostra carta gin cambia spesso, chiedi sempre al bartender le novità della settimana.</p>
       </div>
@@ -167,6 +175,7 @@ export const CtaBanner = ({ label, title, em, text, to, cta }) => (
 /* ============ CONTATTI ============ */
 export const Contact = () => {
   const status = useOpenStatus();
+  const { mapAllowed, grantMapConsent } = useMapConsent();
   const today = new Date().getDay();
 
   return (
@@ -208,35 +217,99 @@ export const Contact = () => {
               <div>
                 <h3>Contattaci</h3>
                 <p>
-                  <a href={CONTACT.phoneHref}>{CONTACT.phone}</a><br />
-                  <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+                  <a href={CONTACT.phoneHref} onClick={() => trackEvent('click_phone', { location: 'contact_info' })}>{CONTACT.phone}</a><br />
+                  <a href={`mailto:${CONTACT.email}`} onClick={() => trackEvent('click_email', { location: 'contact_info' })}>{CONTACT.email}</a>
                 </p>
               </div>
             </div>
 
             <div className="contact-actions">
-              <a id="cta-call" href={CONTACT.phoneHref} className="btn btn-primary"><Phone size={15} /> Chiama</a>
-              <a id="cta-whatsapp" href={CONTACT.whatsapp} target="_blank" rel="noreferrer" className="btn btn-outline"><MessageCircle size={15} /> WhatsApp</a>
-              <a id="cta-directions" href={CONTACT.mapsLink} target="_blank" rel="noreferrer" className="btn btn-outline"><Navigation size={15} /> Indicazioni</a>
+              <a
+                id="cta-call"
+                href={CONTACT.phoneHref}
+                onClick={() => trackEvent('click_phone', { location: 'contact_cta' })}
+                className="btn btn-primary"
+              >
+                <Phone size={15} /> Chiama
+              </a>
+              <a
+                id="cta-whatsapp"
+                href={CONTACT.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackEvent('click_whatsapp', { location: 'contact_cta' })}
+                className="btn btn-outline"
+              >
+                <MessageCircle size={15} /> WhatsApp
+              </a>
+              <a
+                id="cta-directions"
+                href={CONTACT.mapsLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackEvent('click_directions', { location: 'contact_cta' })}
+                className="btn btn-outline"
+              >
+                <Navigation size={15} /> Indicazioni
+              </a>
             </div>
           </div>
 
           <div className="contact-map reveal">
-            <iframe
-              title="Mappa Shake & Tonic"
-              src={CONTACT.mapsEmbed}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-            <div className="map-tint" />
-            <a href={CONTACT.mapsLink} target="_blank" rel="noreferrer" className="map-badge">
-              <MapPin size={14} /> Apri in Google Maps
-            </a>
+            {mapAllowed ? (
+              <>
+                <iframe
+                  title="Mappa Shake & Tonic — Via Galileo Galilei 17, Novara"
+                  src={CONTACT.mapsEmbed}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+                <div className="map-tint" />
+                <a
+                  href={CONTACT.mapsLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackEvent('click_directions', { location: 'map_badge' })}
+                  className="map-badge"
+                >
+                  <MapPin size={14} /> Apri in Google Maps
+                </a>
+              </>
+            ) : (
+              <div className="map-consent-placeholder">
+                <div className="map-consent-icon">
+                  <MapPin size={26} strokeWidth={1.5} />
+                </div>
+                <h3>{CONTACT.address}</h3>
+                <p className="map-consent-city">{CONTACT.city}</p>
+                <p className="map-consent-note">
+                  <ShieldCheck size={14} /> Per tutelare la tua privacy, la mappa interattiva di
+                  Google Maps è disattivata finché non scegli di caricarla.
+                </p>
+                <div className="map-consent-actions">
+                  <button type="button" className="btn btn-primary" onClick={grantMapConsent}>
+                    Mostra mappa interattiva
+                  </button>
+                  <a
+                    href={CONTACT.mapsLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackEvent('click_directions', { location: 'map_placeholder' })}
+                    className="btn btn-outline"
+                  >
+                    <Navigation size={15} /> Apri in Google Maps
+                  </a>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
         <div className="contact-mail-hint">
-          <Mail size={14} /> Per eventi privati e feste di compleanno scrivici: <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+          <Mail size={14} /> Per eventi privati e feste di compleanno scrivici:{' '}
+          <a href={`mailto:${CONTACT.email}`} onClick={() => trackEvent('click_email', { location: 'events_hint' })}>
+            {CONTACT.email}
+          </a>
         </div>
       </div>
     </section>

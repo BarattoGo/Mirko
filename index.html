@@ -2,29 +2,101 @@
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/jpeg" href="/logo.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#000000" />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/jpeg" href="/logo.jpg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- SEO & Canonical -->
     <title>Shake &amp; Tonic | Gintoneria e Cocktail Bar a Novara</title>
-    <meta name="description" content="Shake & Tonic — Gintoneria e Cocktail bar d'autore a Novara. Oltre 30 gin premium, toniche artigianali, cocktail signature, colazioni e aperitivi. Via Galileo Galilei 17." />
-    <meta property="og:title" content="Shake & Tonic | Gintoneria e Cocktail Bar" />
-    <meta property="og:description" content="Gintoneria e Cocktail bar. Il tuo punto di ritrovo esclusivo a Novara." />
-    <meta property="og:image" content="/logo.jpg" />
+    <meta
+      name="description"
+      content="Shake &amp; Tonic — Gintoneria e Cocktail bar d'autore a Novara in Via Galileo Galilei 17. Oltre 30 gin premium, toniche artigianali, cocktail signature, colazioni e aperitivi."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.shakeandtonic.it/" />
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="Shake &amp; Tonic" />
+    <meta property="og:title" content="Shake &amp; Tonic | Gintoneria e Cocktail Bar a Novara" />
+    <meta
+      property="og:description"
+      content="Oltre 30 gin premium, toniche artigianali, cocktail signature, colazioni e aperitivi. Il tuo punto di ritrovo esclusivo a Novara in Via Galileo Galilei 17."
+    />
+    <meta property="og:url" content="https://www.shakeandtonic.it/" />
+    <meta property="og:image" content="https://www.shakeandtonic.it/logo.jpg" />
+    <meta property="og:image:width" content="957" />
+    <meta property="og:image:height" content="885" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="it_IT" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="image" href="/hero-day.jpg" />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Shake &amp; Tonic | Gintoneria e Cocktail Bar a Novara" />
+    <meta
+      name="twitter:description"
+      content="Gintoneria e Cocktail bar d'autore a Novara. Oltre 30 gin premium, toniche artigianali e cocktail signature."
+    />
+    <meta name="twitter:image" content="https://www.shakeandtonic.it/logo.jpg" />
+
+    <!-- Preload Font locali & Hero Image per LCP -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/manrope-normal-latin.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/cormorant-garamond-normal-latin.woff2" crossorigin />
+    <link rel="preload" as="image" href="/hero-day.jpg" fetchpriority="high" />
+
+    <!-- ============================================================
+         COOKIEYES + GOOGLE CONSENT MODE v2 + GOOGLE ANALYTICS 4
+         Decommentare e sostituire COOKIEYES_ID e G-XXXXXXXXXX
+         una volta attivati CookieYes e la proprietà GA4:
+
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        functionality_storage: 'denied',
+        personalization_storage: 'denied',
+        security_storage: 'granted',
+        wait_for_update: 2000
+      });
+      gtag('set', 'ads_data_redaction', true);
+      gtag('set', 'url_passthrough', false);
+    </script>
+    <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/COOKIEYES_ID/script.js"></script>
+    <script type="text/plain" data-cookieyes="cookieyes-analytics" async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script type="text/plain" data-cookieyes="cookieyes-analytics">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX', { anonymize_ip: true, send_page_view: false });
+    </script>
+    ============================================================ -->
+
+    <!-- Structured Data Schema.org (BarOrPub) -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "BarOrPub",
+        "@id": "https://www.shakeandtonic.it/#bar",
         "name": "Shake & Tonic",
-        "description": "Gintoneria e Cocktail bar d'autore a Novara",
-        "image": "/logo.jpg",
+        "description": "Gintoneria e Cocktail bar d'autore a Novara in Via Galileo Galilei 17. Oltre 30 etichette di gin premium, toniche artigianali, cocktail signature, caffetteria e tapas.",
+        "url": "https://www.shakeandtonic.it/",
+        "hasMenu": "https://www.shakeandtonic.it/menu",
+        "image": [
+          "https://www.shakeandtonic.it/logo.jpg",
+          "https://www.shakeandtonic.it/hero-day.jpg",
+          "https://www.shakeandtonic.it/gin-tonic.jpg"
+        ],
         "telephone": "+39 320 808 0834",
         "email": "info@shakeandtonic.it",
-        "servesCuisine": ["Cocktail", "Gin Tonic", "Tapas"],
+        "priceRange": "€€",
+        "servesCuisine": ["Cocktail", "Gin Tonic", "Caffetteria", "Tapas", "Aperitivo"],
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "Via Galileo Galilei, 17",
@@ -33,11 +105,42 @@
           "addressRegion": "NO",
           "addressCountry": "IT"
         },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 45.4384,
+          "longitude": 8.6186
+        },
         "openingHoursSpecification": [
-          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday"], "opens": "07:00", "closes": "22:00" },
-          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Thursday"], "opens": "07:00", "closes": "00:00" },
-          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Friday","Saturday"], "opens": "07:00", "closes": "01:00" },
-          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday"], "opens": "07:00", "closes": "13:00" }
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday"],
+            "opens": "07:00",
+            "closes": "22:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Thursday"],
+            "opens": "07:00",
+            "closes": "23:59"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Friday", "Saturday"],
+            "opens": "07:00",
+            "closes": "23:59"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Saturday", "Sunday"],
+            "opens": "00:00",
+            "closes": "01:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Sunday"],
+            "opens": "07:00",
+            "closes": "13:00"
+          }
         ]
       }
     </script>

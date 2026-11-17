@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { usePageTitle } from '../hooks';
+import { PAGE_SEO } from '../data';
+import { usePageSEO } from '../hooks';
 import { PageHero, Ritual, GinMatcher, Counter } from '../components/Sections';
 
 const GinIntro = () => (
@@ -25,7 +26,14 @@ const GinIntro = () => (
           <a href="#matcher" className="link-arrow">Trova il tuo abbinamento <ArrowRight size={16} /></a>
         </div>
         <div className="gin-image reveal">
-          <img src="/gin-tonic.jpg" alt="Gin Tonic Signature di Shake & Tonic" loading="lazy" />
+          <img
+            src="/gin-tonic.jpg"
+            alt="Gin Tonic Signature servito in calice balloon da Shake & Tonic a Novara"
+            width="1024"
+            height="1024"
+            loading="lazy"
+            decoding="async"
+          />
           <div className="gin-image-caption glass">
             <span>Servito in</span>
             <strong>Calice Balloon</strong>
@@ -48,7 +56,7 @@ const GinNumbers = () => (
 );
 
 const GintoneriaPage = () => {
-  usePageTitle('La Gintoneria | Shake & Tonic Novara');
+  usePageSEO(PAGE_SEO.gintoneria);
   return (
     <>
       <PageHero

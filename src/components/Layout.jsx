@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { ArrowUp, ArrowUpRight } from 'lucide-react';
-import { CONTACT, HOURS } from '../data';
-import { useOpenStatus } from '../hooks';
+import { CONTACT, HOURS, LEGAL } from '../data';
+import { reopenCookieConsent, trackEvent, useOpenStatus } from '../hooks';
 
 /* Ordine voci: Home, Menù, Gintoneria, Chi Siamo, Contatti */
 const LINKS_LEFT = [
@@ -46,11 +46,22 @@ export const Navbar = () => {
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape' && open) setOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKeyDown);
+    };
   }, [open]);
 
   return (
     <>
+      <a href="#main-content" className="skip-link">
+        Salta al contenuto principale
+      </a>
+
       <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${open ? 'menu-open' : ''}`} aria-label="Navigazione principale">
         <div className="navbar-inner">
           <div className="nav-side nav-left">
@@ -69,6 +80,7 @@ export const Navbar = () => {
               onClick={() => setOpen(!open)}
               aria-label={open ? 'Chiudi menu' : 'Apri menu'}
               aria-expanded={open}
+              aria-controls="mobile-navigation"
             >
               <span /><span />
             </button>
@@ -77,7 +89,12 @@ export const Navbar = () => {
       </nav>
 
       {/* Menu mobile a schermo intero */}
-      <div className={`mobile-menu ${open ? 'open' : ''}`} aria-hidden={!open}>
+      <div
+        id="mobile-navigation"
+        className={`mobile-menu ${open ? 'open' : ''}`}
+        aria-hidden={!open}
+        inert={!open ? '' : undefined}
+      >
         <div className="mobile-menu-glow" />
         <ul className="mobile-menu-links">
           {ALL_LINKS.map((l, i) => (
@@ -97,48 +114,105 @@ export const Navbar = () => {
 };
 
 /* ============ FOOTER ============ */
-export const Footer = () => (
-  <footer className="footer">
-    <div className="container">
-      <div className="footer-top">
-        <div className="footer-brand">
-          <Logo className="footer-logo" />
-          <p>Gintoneria e Cocktail bar. Il tuo punto di ritrovo esclusivo a Novara.</p>
+export const Footer = () => {
+  const navigate = useNavigate();
+
+  const handleCookiePrefs = () => {
+    if (!reopenCookieConsent()) {
+      navigate('/cookie-policy');
+    }
+  };
+
+  const handleSocialClick = (e, url, network) => {
+    if (!url || url === '#') {
+      e.preventDefault();
+      return;
+    }
+    trackEvent('click_social', { network });
+  };
+
+  const legalDetails = [
+    LEGAL.companyName + (LEGAL.legalForm ? ` ${LEGAL.legalForm}` : ''),
+    LEGAL.legalAddress,
+    LEGAL.vatId ? `P.IVA ${LEGAL.vatId}` : null,
+    LEGAL.taxCode ? `C.F. ${LEGAL.taxCode}` : null,
+    LEGAL.rea ? `REA ${LEGAL.rea}` : null,
+    LEGAL.pec ? `PEC: ${LEGAL.pec}` : null,
+  ].filter(Boolean);
+
+  return (
+    <footer className="footer">
+      <div className="container">
+        <div className="footer-top">
+          <div className="footer-brand">
+            <Logo className="footer-logo" />
+            <p>Gintoneria e Cocktail bar. Il tuo punto di ritrovo esclusivo a Novara.</p>
+          </div>
+
+          <div className="footer-col">
+            <h4>Naviga</h4>
+            {ALL_LINKS.map((l) => <Link key={l.label} to={l.to}>{l.label}</Link>)}
+          </div>
+
+          <div className="footer-col">
+            <h4>Orari</h4>
+            {HOURS.map((h) => (
+              <p key={h.label}><span>{h.label}</span>{h.text}</p>
+            ))}
+          </div>
+
+          <div className="footer-col">
+            <h4>Dove siamo</h4>
+            <p>{CONTACT.address}<br />{CONTACT.city}</p>
+            <a href={CONTACT.phoneHref} onClick={() => trackEvent('click_phone', { location: 'footer' })}>{CONTACT.phone}</a>
+            <a href={`mailto:${CONTACT.email}`} onClick={() => trackEvent('click_email', { location: 'footer' })}>{CONTACT.email}</a>
+          </div>
         </div>
 
-        <div className="footer-col">
-          <h4>Naviga</h4>
-          {ALL_LINKS.map((l) => <Link key={l.label} to={l.to}>{l.label}</Link>)}
+        <div className="footer-legal-bar">
+          <p className="footer-company-info">
+            {legalDetails.join(' · ')}
+          </p>
+          <nav className="footer-legal-links" aria-label="Informative legali">
+            <Link to="/privacy-policy">Privacy Policy</Link>
+            <Link to="/cookie-policy">Cookie Policy</Link>
+            <Link to="/termini-e-condizioni">Termini e Condizioni</Link>
+            <button type="button" className="footer-cookie-btn" onClick={handleCookiePrefs}>
+              Preferenze Cookie
+            </button>
+          </nav>
         </div>
 
-        <div className="footer-col">
-          <h4>Orari</h4>
-          {HOURS.map((h) => (
-            <p key={h.label}><span>{h.label}</span>{h.text}</p>
-          ))}
-        </div>
-
-        <div className="footer-col">
-          <h4>Dove siamo</h4>
-          <p>{CONTACT.address}<br />{CONTACT.city}</p>
-          <a href={CONTACT.phoneHref}>{CONTACT.phone}</a>
-          <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+        <div className="footer-bottom">
+          <span>© {new Date().getFullYear()} Shake &amp; Tonic. Tutti i diritti riservati.</span>
+          <div className="footer-socials">
+            <a
+              href={CONTACT.instagram}
+              target={CONTACT.instagram !== '#' ? '_blank' : undefined}
+              rel={CONTACT.instagram !== '#' ? 'noopener noreferrer' : undefined}
+              onClick={(e) => handleSocialClick(e, CONTACT.instagram, 'instagram')}
+              aria-label="Instagram"
+            >
+              Instagram <ArrowUpRight size={14} />
+            </a>
+            <a
+              href={CONTACT.facebook}
+              target={CONTACT.facebook !== '#' ? '_blank' : undefined}
+              rel={CONTACT.facebook !== '#' ? 'noopener noreferrer' : undefined}
+              onClick={(e) => handleSocialClick(e, CONTACT.facebook, 'facebook')}
+              aria-label="Facebook"
+            >
+              Facebook <ArrowUpRight size={14} />
+            </a>
+            <button id="back-to-top" className="back-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Torna su">
+              <ArrowUp size={16} />
+            </button>
+          </div>
         </div>
       </div>
-
-      <div className="footer-bottom">
-        <span>© {new Date().getFullYear()} Shake &amp; Tonic. Tutti i diritti riservati.</span>
-        <div className="footer-socials">
-          <a href={CONTACT.instagram} aria-label="Instagram">Instagram <ArrowUpRight size={14} /></a>
-          <a href={CONTACT.facebook} aria-label="Facebook">Facebook <ArrowUpRight size={14} /></a>
-          <button id="back-to-top" className="back-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Torna su">
-            <ArrowUp size={16} />
-          </button>
-        </div>
-      </div>
-    </div>
-  </footer>
-);
+    </footer>
+  );
+};
 
 /* ============ CURSOR GLOW (solo desktop) ============ */
 export const CursorGlow = () => {
