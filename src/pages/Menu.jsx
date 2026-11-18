@@ -49,21 +49,23 @@ const MenuPage = () => {
               </button>
             ))}
           </div>
+
+          <div className="menu-sticky-bar">
+            <Link to="/gintoneria#matcher" className="menu-matcher-callout">
+              <span className="menu-matcher-text">
+                <Sparkles size={14} />
+                <span>
+                  <strong>Non sai cosa bere?</strong> Scopri il tuo drink ideale
+                </span>
+              </span>
+              <span className="menu-matcher-cta">
+                Trova il tuo drink <ArrowRight size={13} />
+              </span>
+            </Link>
+          </div>
         </div>
 
         <div className="container">
-          <Link to="/gintoneria#matcher" className="menu-matcher-callout">
-            <span className="menu-matcher-text">
-              <Sparkles size={16} />
-              <span>
-                <strong>Non sai cosa bere stasera?</strong> Scegli il gusto che preferisci e ti consigliamo il drink perfetto.
-              </span>
-            </span>
-            <span className="menu-matcher-cta">
-              Trova il tuo drink <ArrowRight size={14} />
-            </span>
-          </Link>
-
           {MENU_TABS.map((t) => {
             const isActive = tab === t.id;
             const sections = GROUPED_MENU[t.id];
