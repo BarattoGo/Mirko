@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import {
   Clock, MapPin, Phone, Mail, MessageCircle, Navigation, ArrowRight,
   Citrus, Flower2, Martini, Leaf, Flame, Cherry, Sparkles, ShieldCheck, CalendarCheck,
+  Sun, Wine, GlassWater, Award,
 } from 'lucide-react';
 import { CONTACT, HOURS, RITUAL, GIN_PROFILES } from '../data';
 import { openBookingModal, trackEvent, useCountUp, useMapConsent } from '../hooks';
@@ -70,8 +71,19 @@ export const Ritual = () => (
   </section>
 );
 
-/* ============ GIN & TONIC MATCHER ============ */
-const ICONS = { citrus: Citrus, flower: Flower2, martini: Martini, leaf: Leaf, flame: Flame, cherry: Cherry };
+/* ============ GIN & DRINK MATCHER ============ */
+const ICONS = {
+  citrus: Citrus,
+  flower: Flower2,
+  martini: Martini,
+  leaf: Leaf,
+  flame: Flame,
+  cherry: Cherry,
+  tropical: Sun,
+  bitter: Wine,
+  aged: Award,
+  zero: GlassWater,
+};
 const SCALE_LABELS = { freschezza: 'Freschezza', corpo: 'Corpo', aromaticita: 'Aromaticità' };
 
 export const GinMatcher = () => {
@@ -82,13 +94,13 @@ export const GinMatcher = () => {
     <section className="section matcher" id="matcher">
       <div className="container">
         <SectionHeading
-          label="Gin & Tonic Matcher"
+          label="Drink & Gin Matcher"
           title="Qual è il tuo"
           em="mood stasera?"
-          text="Scegli il profilo aromatico che preferisci: ti suggeriamo l'abbinamento perfetto da chiedere al bancone."
+          text="Scegli il profilo di gusto che preferisci: ti consigliamo sia il Gin & Tonic perfetto sia i Cocktail dalla nostra carta."
         />
 
-        <div className="matcher-chips reveal" role="tablist" aria-label="Profili aromatici">
+        <div className="matcher-chips reveal" role="tablist" aria-label="Profili di gusto">
           {GIN_PROFILES.map((g) => {
             const Icon = ICONS[g.icon];
             return (
@@ -123,10 +135,27 @@ export const GinMatcher = () => {
               <p className="matcher-desc">{p.desc}</p>
 
               <dl className="matcher-recipe">
-                <div><dt>Gin</dt><dd>{p.gin}</dd></div>
-                <div><dt>Tonica</dt><dd>{p.tonic}</dd></div>
+                <div><dt>Calice / Base</dt><dd>{p.gin}</dd></div>
+                <div><dt>Servizio</dt><dd>{p.tonic}</dd></div>
                 <div><dt>Garnish</dt><dd>{p.garnish}</dd></div>
               </dl>
+
+              {p.menuPicks && (
+                <div className="matcher-picks">
+                  <span className="matcher-picks-label">🍸 Dalla nostra carta Cocktail</span>
+                  <ul className="matcher-picks-list">
+                    {p.menuPicks.map((item) => (
+                      <li key={item.name} className="matcher-pick-item">
+                        <span className="matcher-pick-name">{item.name}</span>
+                        <span className="matcher-pick-price">{item.price}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link to="/menu" className="matcher-menu-link">
+                    Vedi tutto il menù completo <ArrowRight size={14} />
+                  </Link>
+                </div>
+              )}
             </div>
 
             <div className="matcher-result-side">

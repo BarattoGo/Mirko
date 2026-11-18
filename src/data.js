@@ -138,49 +138,127 @@ export const RITUAL = [
   { n: '04', title: 'Il Botanico', desc: 'Scorze, erbe fresche e spezie scelte per accompagnare il gin. Il tocco finale che lo rende unico.' },
 ];
 
-/* Profili del Gin & Tonic Matcher (abbinamenti indicativi) */
+/* Profili del Drink & Gin Matcher (10 profili con Gin Tonic + Cocktail reali dalla carta) */
 export const GIN_PROFILES = [
   {
     id: 'agrumato', label: 'Agrumato', icon: 'citrus',
     title: 'Solare & Agrumato',
     gin: 'Malfy Con Limone', tonic: 'Tonica Mediterranea', garnish: 'Scorza di limone & basilico',
-    desc: 'Luminoso e dissetante, profuma di costiera. Il gin tonic perfetto per iniziare la serata.',
-    scale: { freschezza: 95, corpo: 40, aromaticita: 60 },
-  },
-  {
-    id: 'floreale', label: 'Floreale', icon: 'flower',
-    title: 'Delicato & Floreale',
-    gin: "Hendrick's", tonic: 'Tonica ai fiori di sambuco', garnish: 'Cetriolo & petali di rosa',
-    desc: 'Elegante e setoso, con note di rosa e cetriolo. Per chi ama i profumi raffinati.',
-    scale: { freschezza: 75, corpo: 45, aromaticita: 85 },
-  },
-  {
-    id: 'secco', label: 'Secco', icon: 'martini',
-    title: 'Secco & Classico',
-    gin: 'Tanqueray London Dry', tonic: 'Indian Tonic Water', garnish: 'Lime & bacche di ginepro',
-    desc: 'Il grande classico: ginepro protagonista, amaro deciso e finale pulito.',
-    scale: { freschezza: 70, corpo: 70, aromaticita: 55 },
-  },
-  {
-    id: 'erbaceo', label: 'Erbaceo', icon: 'leaf',
-    title: 'Mediterraneo & Erbaceo',
-    gin: 'Gin Mare', tonic: 'Tonica Mediterranea', garnish: 'Rosmarino & oliva',
-    desc: 'Rosmarino, timo e oliva: un viaggio sapido nel Mediterraneo, dentro un calice.',
-    scale: { freschezza: 65, corpo: 65, aromaticita: 90 },
-  },
-  {
-    id: 'speziato', label: 'Speziato', icon: 'flame',
-    title: 'Complesso & Speziato',
-    gin: 'Monkey 47', tonic: 'Tonica Premium Classica', garnish: "Pepe rosa & scorza d'arancia",
-    desc: 'Ricco, profondo, avvolgente. 47 botaniche per chi cerca carattere.',
-    scale: { freschezza: 50, corpo: 90, aromaticita: 95 },
+    desc: 'Luminoso, fresco e dissetante, con agrumi vivi in primo piano. Perfetto per iniziare la serata.',
+    menuPicks: [
+      { name: 'Gin Fizz', price: '€8.00' },
+      { name: 'Mojito Siciliano', price: '€7.00' },
+      { name: 'Tequila Paloma', price: '€8.00' },
+    ],
+    scale: { freschezza: 95, corpo: 45, aromaticita: 65 },
   },
   {
     id: 'fruttato', label: 'Fruttato', icon: 'cherry',
     title: 'Morbido & Fruttato',
     gin: 'Bombay Bramble', tonic: 'Tonica Premium Light', garnish: 'More & lamponi freschi',
-    desc: 'Frutti di bosco e una dolcezza naturale. Morbido, colorato, irresistibile.',
-    scale: { freschezza: 80, corpo: 50, aromaticita: 70 },
+    desc: 'Frutti rossi maturi e una morbidezza vellutata. Avvolgente, colorato e irresistibile.',
+    menuPicks: [
+      { name: 'Bramble', price: '€8.00' },
+      { name: 'Porn Star Martini', price: '€7.00' },
+      { name: 'Raspberry Mule', price: '€8.00' },
+    ],
+    scale: { freschezza: 80, corpo: 55, aromaticita: 75 },
+  },
+  {
+    id: 'esotico', label: 'Esotico', icon: 'tropical',
+    title: 'Esotico & Tropicale',
+    gin: 'Gin Premium & Passion Twist', tonic: 'Tonica Indiana & Lime', garnish: 'Passion fruit & lime fresco',
+    desc: 'Note tropicali di frutto della passione, lime, rum e frutta fresca. Un viaggio estivo nel bicchiere.',
+    menuPicks: [
+      { name: 'Mai-Tai', price: '€8.00' },
+      { name: 'Mojito Fresh Fruits', price: '€8.00' },
+      { name: 'Caipirinha', price: '€6.00' },
+    ],
+    scale: { freschezza: 90, corpo: 60, aromaticita: 85 },
+  },
+  {
+    id: 'floreale', label: 'Floreale', icon: 'flower',
+    title: 'Delicato & Floreale',
+    gin: "Hendrick's", tonic: 'Tonica ai fiori di sambuco', garnish: 'Cetriolo & petali di rosa',
+    desc: 'Elegante e setoso, con profumi di fiori di sambuco, rosa e cetriolo. Per chi ama i drink raffinati.',
+    menuPicks: [
+      { name: 'Hugo Spritz', price: '€7.00' },
+      { name: "Pimm's", price: '€6.00' },
+      { name: 'Cosmopolitan', price: '€7.00' },
+    ],
+    scale: { freschezza: 80, corpo: 45, aromaticita: 85 },
+  },
+  {
+    id: 'erbaceo', label: 'Erbaceo', icon: 'leaf',
+    title: 'Mediterraneo & Erbaceo',
+    gin: 'Gin Mare', tonic: 'Tonica Mediterranea', garnish: 'Rosmarino & oliva',
+    desc: 'Rosmarino, menta, timo e botaniche balsamiche: profumi intensi e carattere deciso.',
+    menuPicks: [
+      { name: 'Hanky Panky', price: '€10.00' },
+      { name: 'Mojito', price: '€7.00' },
+      { name: 'John Collins', price: '€8.00' },
+    ],
+    scale: { freschezza: 70, corpo: 65, aromaticita: 90 },
+  },
+  {
+    id: 'secco', label: 'Secco', icon: 'martini',
+    title: 'Secco & Classico',
+    gin: 'Tanqueray London Dry', tonic: 'Indian Tonic Water', garnish: 'Lime & bacche di ginepro',
+    desc: 'Il grande classico senza compromessi: ginepro protagonista, taglio dry e finale pulitissimo.',
+    menuPicks: [
+      { name: 'Cocktail Martini', price: '€9.00' },
+      { name: 'Gin and French', price: '€10.00' },
+      { name: 'Margarita', price: '€7.00' },
+    ],
+    scale: { freschezza: 70, corpo: 75, aromaticita: 55 },
+  },
+  {
+    id: 'amaro', label: 'Amaro & Bitter', icon: 'bitter',
+    title: 'Amaro & Deciso',
+    gin: 'London Dry & Twist Bitter', tonic: 'Tonica Dry & Pompelmo', garnish: "Scorza d'arancia & ginepro",
+    desc: 'Il fascino dell’aperitivo italiano d’autore: note amaricanti, vermouth rosso e agrumi.',
+    menuPicks: [
+      { name: 'Negroni', price: '€7.00' },
+      { name: 'Pink Americano', price: '€7.00' },
+      { name: 'Milano - Torino', price: '€8.00' },
+    ],
+    scale: { freschezza: 60, corpo: 85, aromaticita: 85 },
+  },
+  {
+    id: 'speziato', label: 'Speziato', icon: 'flame',
+    title: 'Complesso & Speziato',
+    gin: 'Monkey 47', tonic: 'Tonica Premium Classica', garnish: "Pepe rosa & scorza d'arancia",
+    desc: 'Zenzero pungente, spezie calde, liquirizia e 47 botaniche per chi cerca un sorso ricco di carattere.',
+    menuPicks: [
+      { name: 'Averna Mule', price: '€7.00' },
+      { name: 'Black Mojito', price: '€7.00' },
+      { name: 'Moskow Mule', price: '€7.00' },
+    ],
+    scale: { freschezza: 55, corpo: 85, aromaticita: 95 },
+  },
+  {
+    id: 'torbato', label: 'Torbato & Intenso', icon: 'aged',
+    title: 'Torbato & Meditazione',
+    gin: 'Selezione Whisky & Rum Riserva', tonic: 'Servito Liscio o On the Rocks', garnish: "Scorza d'arancia / Cioccolato",
+    desc: 'Per il dopocena: note affumicate di torba scozzese, bourbon americani e grandi rum invecchiati.',
+    menuPicks: [
+      { name: 'Old Fashioned', price: '€8.00' },
+      { name: 'Manhattan', price: '€8.00' },
+      { name: "Lagavulin / Papa's Pilar", price: '€10.00' },
+    ],
+    scale: { freschezza: 30, corpo: 98, aromaticita: 95 },
+  },
+  {
+    id: 'analcolico', label: 'Zero Alcol 0.0', icon: 'zero',
+    title: 'Piacere Zero Alcol (0.0)',
+    gin: 'Tanqueray 0.0 / Beefeater 0.0', tonic: 'Tonica Premium o Mediterranea', garnish: 'Lime, frutti rossi & menta',
+    desc: 'Tutto il rituale del Gin Tonic in calice balloon o di un cocktail esotico, ma con 0.0% alcol.',
+    menuPicks: [
+      { name: 'Tanqueray 0.0 / Beefeater 0.0', price: '€8.00' },
+      { name: 'Solea (Analcolico)', price: '€6.00' },
+      { name: 'Cool Passion (Analcolico)', price: '€7.00' },
+    ],
+    scale: { freschezza: 95, corpo: 40, aromaticita: 75 },
   },
 ];
 

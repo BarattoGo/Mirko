@@ -50,7 +50,7 @@ const GinNumbers = () => (
       <Counter value={30} suffix="+" label="Etichette di gin" />
       <Counter value={12} label="Toniche artigianali" />
       <Counter value={360} suffix="+" label="Combinazioni" />
-      <Counter value={6} label="Profili aromatici" />
+      <Counter value={10} label="Profili di gusto" />
     </div>
   </section>
 );
