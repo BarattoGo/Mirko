@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles, ArrowRight, ChevronDown } from 'lucide-react';
+import { Sparkles, ArrowRight } from 'lucide-react';
 import { MENU, MENU_TABS, PAGE_SEO } from '../data';
 import { usePageSEO } from '../hooks';
 import { PageHero, CtaBanner } from '../components/Sections';
@@ -21,56 +21,15 @@ const GROUPED_MENU = Object.fromEntries(
 
 const MenuPage = () => {
   usePageSEO(PAGE_SEO.menu);
-  const [activeCat, setActiveCat] = useState(MENU_TABS[0].id);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
+  const [tab, setTab] = useState('alcolici');
 
-  /* Aggiorna automaticamente la categoria attiva durante lo scroll */
-  useEffect(() => {
-    const onScroll = () => {
-      const offset = 210;
-      let current = MENU_TABS[0].id;
-      for (const t of MENU_TABS) {
-        const el = document.getElementById(`cat-${t.id}`);
-        if (el && el.getBoundingClientRect().top <= offset) {
-          current = t.id;
-        }
-      }
-      setActiveCat(current);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  /* Chiude il menu a tendina cliccando fuori o premendo Escape */
-  useEffect(() => {
-    if (!dropdownOpen) return;
-    const onClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setDropdownOpen(false);
-      }
-    };
-    const onKey = (e) => {
-      if (e.key === 'Escape') setDropdownOpen(false);
-    };
-    window.addEventListener('mousedown', onClickOutside);
-    window.addEventListener('keydown', onKey);
-    return () => {
-      window.removeEventListener('mousedown', onClickOutside);
-      window.removeEventListener('keydown', onKey);
-    };
-  }, [dropdownOpen]);
-
-  const scrollToCategory = (id) => {
-    setActiveCat(id);
-    setDropdownOpen(false);
-    const el = document.getElementById(`cat-${id}`);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const handleSelectTab = (id) => {
+    setTab(id);
+    const sectionEl = document.getElementById('menu-content-start');
+    if (sectionEl && window.scrollY > sectionEl.offsetTop - 120) {
+      window.scrollTo({ top: sectionEl.offsetTop - 140, behavior: 'smooth' });
     }
   };
-
-  const currentTab = MENU_TABS.find((t) => t.id === activeCat) || MENU_TABS[0];
 
   return (
     <>
@@ -81,90 +40,77 @@ const MenuPage = () => {
         text="Dalla colazione al dopocena, ogni momento ha il suo gusto."
       />
 
-      <section className="section menu-page">
+      <section className="section menu-page" id="menu-content-start">
         <div className="menu-tabs-wrap">
-          <div className="container menu-sticky-bar">
-            <div className="menu-dropdown" ref={dropdownRef}>
-              <button
-                type="button"
-                className={`menu-dropdown-btn ${dropdownOpen ? 'is-open' : ''}`}
-                onClick={() => setDropdownOpen((v) => !v)}
-                aria-expanded={dropdownOpen}
-                aria-haspopup="listbox"
-              >
-                <span className="menu-dropdown-prefix">Categoria:</span>
-                <strong>{currentTab.label}</strong>
-                <ChevronDown size={15} className={`menu-dropdown-chevron ${dropdownOpen ? 'rot' : ''}`} />
-              </button>
-
-              {dropdownOpen && (
-                <ul className="menu-dropdown-list" role="listbox" aria-label="Scegli categoria menù">
-                  {MENU_TABS.map((t, idx) => (
-                    <li key={t.id} role="option" aria-selected={activeCat === t.id}>
-                      <button
-                        type="button"
-                        className={`menu-dropdown-option ${activeCat === t.id ? 'active' : ''}`}
-                        onClick={() => scrollToCategory(t.id)}
-                      >
-                        <span className="menu-dropdown-num">0{idx + 1}</span>
-                        <span>{t.label}</span>
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              )}
+          <div className="container">
+            <div className="menu-tabs-grid" role="tablist" aria-label="Categorie menù">
+              {MENU_TABS.map((t) => (
+                <button
+                  key={t.id}
+                  id={`menu-tab-${t.id}`}
+                  role="tab"
+                  aria-selected={tab === t.id}
+                  aria-controls={`menu-panel-${t.id}`}
+                  className={`menu-tab ${tab === t.id ? 'active' : ''}`}
+                  onClick={() => handleSelectTab(t.id)}
+                >
+                  {t.label}
+                </button>
+              ))}
             </div>
 
-            <Link to="/gintoneria#matcher" className="menu-matcher-callout">
-              <span className="menu-matcher-text">
-                <Sparkles size={14} />
-                <span>
-                  <strong>Non sai cosa bere?</strong> Scopri il tuo drink
+            <div className="menu-sticky-bar">
+              <Link to="/gintoneria#matcher" className="menu-matcher-callout">
+                <span className="menu-matcher-text">
+                  <Sparkles size={14} />
+                  <span>
+                    <strong>Non sai cosa bere?</strong> Scopri il tuo drink ideale
+                  </span>
                 </span>
-              </span>
-              <span className="menu-matcher-cta">
-                Fai il test <ArrowRight size={13} />
-              </span>
-            </Link>
+                <span className="menu-matcher-cta">
+                  Trova il tuo drink <ArrowRight size={13} />
+                </span>
+              </Link>
+            </div>
           </div>
         </div>
 
-        <div className="container menu-continuous">
-          {MENU_TABS.map((t, catIndex) => {
+        <div className="container">
+          {MENU_TABS.map((t) => {
+            const isActive = tab === t.id;
             const sections = GROUPED_MENU[t.id];
             return (
-              <div key={t.id} id={`cat-${t.id}`} className="menu-category-group">
-                <div className="menu-category-header">
-                  <span className="menu-category-index">0{catIndex + 1}</span>
-                  <h2 className="menu-category-title">{t.label}</h2>
-                  <span className="menu-category-line" aria-hidden="true" />
-                </div>
-
-                <div className="menu-sections">
-                  {sections.map((sec, si) => (
-                    <div key={sec.title} className="menu-block" style={{ '--i': si }}>
-                      <div className="menu-block-head">
-                        <span className="menu-block-num">{ROMAN[si]}</span>
-                        <h3>{sec.title}</h3>
-                      </div>
-                      <ul className="menu-list">
-                        {sec.items.map((item) => (
-                          <li key={item.name} className="menu-item">
-                            <div className="menu-item-row">
-                              <h4>
-                                {item.name}
-                                {item.tag && <span className={`menu-tag tag-${item.tag.replace(/\s/g, '').toLowerCase()}`}>{item.tag}</span>}
-                              </h4>
-                              <span className="menu-dots" aria-hidden="true" />
-                              <span className="menu-price">{item.price}</span>
-                            </div>
-                            <p>{item.desc}</p>
-                          </li>
-                        ))}
-                      </ul>
+              <div
+                key={t.id}
+                id={`menu-panel-${t.id}`}
+                role="tabpanel"
+                aria-labelledby={`menu-tab-${t.id}`}
+                hidden={!isActive}
+                className={`menu-sections ${isActive ? 'is-active' : ''}`}
+              >
+                {sections.map((sec, si) => (
+                  <div key={sec.title} className="menu-block" style={{ '--i': si }}>
+                    <div className="menu-block-head">
+                      <span className="menu-block-num">{ROMAN[si]}</span>
+                      <h2>{sec.title}</h2>
                     </div>
-                  ))}
-                </div>
+                    <ul className="menu-list">
+                      {sec.items.map((item) => (
+                        <li key={item.name} className="menu-item">
+                          <div className="menu-item-row">
+                            <h3>
+                              {item.name}
+                              {item.tag && <span className={`menu-tag tag-${item.tag.replace(/\s/g, '').toLowerCase()}`}>{item.tag}</span>}
+                            </h3>
+                            <span className="menu-dots" aria-hidden="true" />
+                            <span className="menu-price">{item.price}</span>
+                          </div>
+                          <p>{item.desc}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
               </div>
             );
           })}
