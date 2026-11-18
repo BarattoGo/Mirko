@@ -5,6 +5,16 @@ import { PAGE_SEO, SITE } from '../src/data.js';
 const distDir = path.resolve('dist');
 const template = fs.readFileSync(path.join(distDir, 'index.html'), 'utf8');
 
+/* Rileva automaticamente l'URL del deploy su Vercel o Netlify (anche sul branch test!) */
+const rawOrigin =
+  process.env.DEPLOY_PRIME_URL ||
+  (process.env.VERCEL_BRANCH_URL ? `https://${process.env.VERCEL_BRANCH_URL}` : '') ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '') ||
+  process.env.URL ||
+  SITE.url;
+
+const origin = rawOrigin.replace(/\/+$/, '');
+
 const escapeHtml = (str) =>
   str
     .replace(/&/g, '&amp;')
@@ -14,8 +24,9 @@ const escapeHtml = (str) =>
 
 const injectMeta = (html, meta) => {
   const cleanPath = meta.path === '/' ? '/' : meta.path.replace(/\/+$/, '');
-  const fullUrl = `${SITE.url}${cleanPath}`;
+  const fullUrl = `${origin}${cleanPath}`;
   const imgPath = meta.image || '/logo.jpg';
+  const fullImg = imgPath.startsWith('http') ? imgPath : `${origin}${imgPath}`;
   const robots = meta.noindex ? 'noindex, follow' : 'index, follow';
   const t = escapeHtml(meta.title);
   const d = escapeHtml(meta.description);
@@ -44,7 +55,7 @@ const injectMeta = (html, meta) => {
     )
     .replace(
       /<meta\s+property="og:image"\s+content="[^"]*"\s*\/>/,
-      `<meta property="og:image" content="${imgPath}" />`
+      `<meta property="og:image" content="${fullImg}" />`
     )
     .replace(
       /<meta\s+name="twitter:title"\s+content="[^"]*"\s*\/>/,
@@ -56,9 +67,12 @@ const injectMeta = (html, meta) => {
     )
     .replace(
       /<meta\s+name="twitter:image"\s+content="[^"]*"\s*\/>/,
-      `<meta name="twitter:image" content="${imgPath}" />`
+      `<meta name="twitter:image" content="${fullImg}" />`
     );
 };
+
+/* Aggiorna anche dist/index.html (Home) con l'URL effettivo del deploy */
+fs.writeFileSync(path.join(distDir, 'index.html'), injectMeta(template, PAGE_SEO.home), 'utf8');
 
 const routes = [
   PAGE_SEO.menu,
@@ -76,4 +90,4 @@ for (const route of routes) {
 }
 
 fs.writeFileSync(path.join(distDir, '404.html'), injectMeta(template, PAGE_SEO.notFound), 'utf8');
-console.log(`✓ Generated static SEO HTML for ${routes.length} routes + 404.html`);
+console.log(`✓ Generated static SEO HTML (origin: ${origin}) for Home + ${routes.length} routes + 404.html`);
