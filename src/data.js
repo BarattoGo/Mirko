@@ -112,8 +112,8 @@ export const MOODS = {
     time: '07:00 — 18:00',
     title: 'Caffetteria',
     titleEm: '& Bar',
-    desc: 'Colazioni con cornetti appena sfornati, caffè selezionati, pranzi veloci e aperitivi al tramonto. Il tuo punto di riferimento.',
-    items: ['Espresso & caffè selezionati', 'Cornetti appena sfornati', 'Pranzi veloci', 'Aperitivo al tramonto'],
+    desc: 'Colazioni con cornetti appena sfornati, caffè selezionati, pranzi veloci e aperitivi. Il tuo punto di riferimento.',
+    items: ['Espresso & caffè selezionati', 'Cornetti appena sfornati', 'Pranzi veloci', 'Aperitivi'],
   },
   night: {
     label: 'Di Sera',

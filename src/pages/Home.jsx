@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Sun, Moon, ArrowRight, ArrowDown, CalendarCheck } from 'lucide-react';
+import { Sun, Moon, ArrowRight, CalendarCheck } from 'lucide-react';
 import { MOODS, SIGNATURES, CONTACT, PAGE_SEO } from '../data';
 import { openBookingModal, usePageSEO } from '../hooks';
 import { Counter, CtaBanner, Contact, SectionHeading } from '../components/Sections';
@@ -62,10 +62,6 @@ const Hero = () => {
 
       <div className="hero-bottom">
         <span>{CONTACT.address} · Novara</span>
-        <a href="#manifesto" className="scroll-hint" aria-label="Scorri ai contenuti">
-          <span className="scroll-line" />
-          <ArrowDown size={14} />
-        </a>
         <span className="hero-mood">{night ? <><Moon size={13} /> Di sera</> : <><Sun size={13} /> Di giorno</>}</span>
       </div>
     </header>
