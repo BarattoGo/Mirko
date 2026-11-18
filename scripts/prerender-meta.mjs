@@ -16,7 +16,6 @@ const injectMeta = (html, meta) => {
   const cleanPath = meta.path === '/' ? '/' : meta.path.replace(/\/+$/, '');
   const fullUrl = `${SITE.url}${cleanPath}`;
   const imgPath = meta.image || '/logo.jpg';
-  const fullImg = imgPath.startsWith('http') ? imgPath : `${SITE.url}${imgPath}`;
   const robots = meta.noindex ? 'noindex, follow' : 'index, follow';
   const t = escapeHtml(meta.title);
   const d = escapeHtml(meta.description);
@@ -24,7 +23,7 @@ const injectMeta = (html, meta) => {
   return html
     .replace(/<title>[\s\S]*?<\/title>/, `<title>${t}</title>`)
     .replace(
-      /<meta\s+name="description"\s+content="[^"]*"\s*\/>/,
+      /<meta\s+name="description"[\s\S]*?\/>/,
       `<meta name="description" content="${d}" />`
     )
     .replace(
@@ -44,12 +43,8 @@ const injectMeta = (html, meta) => {
       `<meta property="og:description" content="${d}" />`
     )
     .replace(
-      /<meta\s+property="og:url"\s+content="[^"]*"\s*\/>/,
-      `<meta property="og:url" content="${fullUrl}" />`
-    )
-    .replace(
       /<meta\s+property="og:image"\s+content="[^"]*"\s*\/>/,
-      `<meta property="og:image" content="${fullImg}" />`
+      `<meta property="og:image" content="${imgPath}" />`
     )
     .replace(
       /<meta\s+name="twitter:title"\s+content="[^"]*"\s*\/>/,
@@ -61,7 +56,7 @@ const injectMeta = (html, meta) => {
     )
     .replace(
       /<meta\s+name="twitter:image"\s+content="[^"]*"\s*\/>/,
-      `<meta name="twitter:image" content="${fullImg}" />`
+      `<meta name="twitter:image" content="${imgPath}" />`
     );
 };
 
