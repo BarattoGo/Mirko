@@ -142,18 +142,24 @@ export const GinMatcher = () => {
 
               {p.menuPicks && (
                 <div className="matcher-picks">
-                  <span className="matcher-picks-label">🍸 Dalla nostra carta Cocktail</span>
+                  <div className="matcher-picks-head">
+                    <span className="matcher-picks-label">
+                      <Sparkles size={12} /> Consigliati dalla nostra carta
+                    </span>
+                    <Link to="/menu" className="matcher-menu-link">
+                      Menù completo <ArrowRight size={13} />
+                    </Link>
+                  </div>
                   <ul className="matcher-picks-list">
-                    {p.menuPicks.map((item) => (
+                    {p.menuPicks.map((item, idx) => (
                       <li key={item.name} className="matcher-pick-item">
+                        <span className="matcher-pick-num">0{idx + 1}</span>
                         <span className="matcher-pick-name">{item.name}</span>
+                        <span className="matcher-pick-dots" aria-hidden="true" />
                         <span className="matcher-pick-price">{item.price}</span>
                       </li>
                     ))}
                   </ul>
-                  <Link to="/menu" className="matcher-menu-link">
-                    Vedi tutto il menù completo <ArrowRight size={14} />
-                  </Link>
                 </div>
               )}
             </div>

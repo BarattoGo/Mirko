@@ -61,14 +61,20 @@ const MenuPage = () => {
 
             <div className="menu-sticky-bar">
               <Link to="/gintoneria#matcher" className="menu-matcher-callout">
-                <span className="menu-matcher-text">
-                  <Sparkles size={14} />
-                  <span>
-                    <strong>Non sai cosa bere?</strong> Scopri il tuo drink ideale
+                <div className="menu-matcher-left">
+                  <span className="menu-matcher-icon" aria-hidden="true">
+                    <Sparkles size={15} />
                   </span>
-                </span>
+                  <div className="menu-matcher-copy">
+                    <span className="menu-matcher-eyebrow">Drink &amp; Gin Matcher</span>
+                    <span className="menu-matcher-headline">
+                      Non sai cosa <em>bere stasera?</em>
+                    </span>
+                  </div>
+                </div>
                 <span className="menu-matcher-cta">
-                  Trova il tuo drink <ArrowRight size={13} />
+                  <span>Scopri il tuo drink</span>
+                  <ArrowRight size={14} />
                 </span>
               </Link>
             </div>
