@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Sparkles, ArrowRight } from 'lucide-react';
 import { MENU, MENU_TABS, PAGE_SEO } from '../data';
 import { usePageSEO } from '../hooks';
 import { PageHero, CtaBanner } from '../components/Sections';
@@ -50,6 +52,18 @@ const MenuPage = () => {
         </div>
 
         <div className="container">
+          <Link to="/gintoneria#matcher" className="menu-matcher-callout">
+            <span className="menu-matcher-text">
+              <Sparkles size={16} />
+              <span>
+                <strong>Non sai cosa bere stasera?</strong> Scegli il gusto che preferisci e ti consigliamo il drink perfetto.
+              </span>
+            </span>
+            <span className="menu-matcher-cta">
+              Trova il tuo drink <ArrowRight size={14} />
+            </span>
+          </Link>
+
           {MENU_TABS.map((t) => {
             const isActive = tab === t.id;
             const sections = GROUPED_MENU[t.id];

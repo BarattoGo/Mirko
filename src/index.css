@@ -923,6 +923,57 @@ h1 em, h2 em, h3 em { font-style: italic; font-weight: 300; color: var(--violet-
 .menu-tab:hover { color: var(--white); border-color: var(--line-2); }
 .menu-tab.active { background: var(--violet); border-color: var(--violet); color: #12061d; }
 
+.menu-matcher-callout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  padding: 1.05rem 1.5rem;
+  margin-bottom: 3rem;
+  border-radius: 18px;
+  border: 1px solid rgba(178, 102, 255, 0.38);
+  background: linear-gradient(120deg, rgba(123, 44, 191, 0.22), rgba(178, 102, 255, 0.06));
+  transition: transform 0.3s var(--ease), border-color 0.3s, background 0.3s;
+}
+@media (hover: hover) {
+  .menu-matcher-callout:hover {
+    transform: translateY(-2px);
+    border-color: var(--violet);
+    background: linear-gradient(120deg, rgba(123, 44, 191, 0.32), rgba(178, 102, 255, 0.12));
+  }
+}
+.menu-matcher-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.92rem;
+  color: var(--muted);
+  font-weight: 300;
+}
+.menu-matcher-text svg {
+  color: var(--violet-light);
+  flex-shrink: 0;
+}
+.menu-matcher-text strong {
+  color: var(--white);
+  font-weight: 600;
+}
+.menu-matcher-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 100px;
+  background: var(--violet);
+  color: #12061d;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 .menu-sections { display: grid; grid-template-columns: 1fr 1fr; gap: 4.5rem 6rem; }
 .menu-sections[hidden] { display: none; }
 .menu-block { animation: swapIn 0.7s var(--ease) both; animation-delay: calc(var(--i) * 0.08s); }
