@@ -329,14 +329,14 @@ export const MENU = {
     { name: 'Hanky Panky', price: '€10.00', desc: 'Gin, Vermouth rosso, Fernet Branca.', tag: 'Signature' },
   ],
   cantina: [
-    { section: 'La Cantina — Rossi (Calice / Bottiglia)' },
+    { section: 'Vini Rossi (Calice / Bottiglia)' },
     { name: 'Chianti', price: '€5 / 25', desc: 'Vino rosso al calice o in bottiglia.' },
     { name: 'Valpolicella', price: '€6 / 30', desc: 'Vino rosso strutturato al calice o in bottiglia.' },
     { name: 'Nebbiolo', price: '€6 / 30', desc: 'Vino rosso piemontese al calice o in bottiglia.' },
     { name: 'Morellino', price: '€6 / 30', desc: 'Morellino di Scansano al calice o in bottiglia.' },
     { name: "Nero d'Avola", price: '€5 / 25', desc: 'Vino rosso siciliano al calice o in bottiglia.' },
 
-    { section: 'La Cantina — Bianchi (Calice / Bottiglia)' },
+    { section: 'Vini Bianchi (Calice / Bottiglia)' },
     { name: 'Grillo', price: '€5 / 25', desc: 'Vino bianco fresco e sapido al calice o in bottiglia.' },
     { name: 'Falanghina', price: '€5 / 25', desc: 'Vino bianco campano al calice o in bottiglia.' },
     { name: 'Ribolla Gialla', price: '€5 / 25', desc: 'Vino bianco friulano al calice o in bottiglia.' },
@@ -344,16 +344,28 @@ export const MENU = {
     { name: 'Traminer', price: '€6 / 30', desc: 'Vino bianco aromatico al calice o in bottiglia.' },
 
     { section: 'Bollicine & Champagne' },
-    { name: 'Franciacorta', price: '€7 / 40', desc: "Bollicine metodo classico (calice / bottiglia)." },
+    { name: 'Franciacorta', price: '€7 / 40', desc: 'Bollicine metodo classico (calice / bottiglia).' },
     { name: 'Valdobbiadene', price: '€5 / 25', desc: 'Prosecco Superiore DOCG (calice / bottiglia).' },
     { name: 'Champagne', price: '€60.00', desc: 'Bottiglia.' },
+  ],
+  birre: [
+    { section: 'Alla Spina' },
+    { name: 'Isenbeck (Premium Pils)', price: '€4 / 6', desc: 'Piccola €4 · Media €6 — Carattere fresco e deciso, tipico delle Pils tedesche.' },
 
-    { section: 'Birre' },
-    { name: 'Spina — Isenbeck (Premium Pils)', price: '€4 / 6', desc: 'Piccola €4 · Media €6 — Carattere fresco e deciso, tipico delle Pils tedesche.' },
-    { name: 'Bottiglia (Heineken, Beck’s, Ichnusa, Corona)', price: '€4.00', desc: 'Birre classiche in bottiglia.' },
-    { name: 'Speciali — Delirium', price: '€6.00', desc: 'Tremens (Strong Blond Beer), Nocturnum (Strong Dark Beer), Red (Strong Fruit Beer).' },
-    { name: 'Speciali — Leffe', price: '€6.00', desc: 'Leffe Rouge, Leffe Ambrée.' },
+    { section: 'In Bottiglia' },
+    { name: 'Heineken', price: '€4.00', desc: 'Lager bionda in bottiglia.' },
+    { name: "Beck's", price: '€4.00', desc: 'Pilsner tedesca in bottiglia.' },
+    { name: 'Ichnusa', price: '€4.00', desc: 'Birra sarda in bottiglia.' },
+    { name: 'Corona', price: '€4.00', desc: 'Pale lager messicana in bottiglia.' },
 
+    { section: 'Birre Speciali' },
+    { name: 'Delirium Tremens', price: '€6.00', desc: 'Strong Blond Beer belga.' },
+    { name: 'Delirium Nocturnum', price: '€6.00', desc: 'Strong Dark Beer belga.' },
+    { name: 'Delirium Red', price: '€6.00', desc: 'Strong Fruit Beer alle ciliegie.' },
+    { name: 'Leffe Rouge', price: '€6.00', desc: 'Birra d’abbazia belga ambrata.' },
+    { name: 'Leffe Ambrée', price: '€6.00', desc: 'Birra d’abbazia belga dal gusto maltato e speziato.' },
+  ],
+  distillati: [
     { section: 'Rum' },
     { name: "Papa's Pilar", price: '€10.00', desc: 'Rum premium da degustazione.' },
     { name: 'Diplomatico', price: '€8.00', desc: 'Rum Reserva Exclusiva.' },
@@ -403,7 +415,9 @@ export const MENU = {
 
 export const MENU_TABS = [
   { id: 'alcolici', label: 'Cocktail' },
-  { id: 'cantina', label: 'Cantina, Birre & Distillati' },
+  { id: 'cantina', label: 'La Cantina' },
+  { id: 'birre', label: 'Birre' },
+  { id: 'distillati', label: 'Rum & Wisky' },
   { id: 'analcolici', label: 'Analcolici' },
   { id: 'cibo', label: 'Food & Taglieri' },
 ];
