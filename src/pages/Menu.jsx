@@ -3,7 +3,7 @@ import { MENU, MENU_TABS, PAGE_SEO } from '../data';
 import { usePageSEO } from '../hooks';
 import { PageHero, CtaBanner } from '../components/Sections';
 
-const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'];
+const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
 
 /* Raggruppa la lista piatta in sezioni */
 const groupSections = (list) =>
