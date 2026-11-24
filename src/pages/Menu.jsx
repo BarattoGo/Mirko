@@ -19,6 +19,16 @@ const GROUPED_MENU = Object.fromEntries(
   MENU_TABS.map((t) => [t.id, groupSections(MENU[t.id])])
 );
 
+/* Foto contestuale per ciascuna categoria del Menù */
+const MENU_HERO_IMAGES = {
+  alcolici: '/menu-cocktail.jpg',
+  cantina: '/hero-aperitivo.jpg',
+  birre: '/hero-night.jpg',
+  distillati: '/hero-bartender.jpg',
+  analcolici: '/menu-analcolici.jpg',
+  cibo: '/menu-food.jpg',
+};
+
 const MenuPage = () => {
   usePageSEO(PAGE_SEO.menu);
   const [tab, setTab] = useState('alcolici');
@@ -34,6 +44,7 @@ const MenuPage = () => {
   return (
     <>
       <PageHero
+        image={MENU_HERO_IMAGES[tab] || '/menu-cocktail.jpg'}
         label="Cosa Offriamo"
         title="Il"
         em="Menù"

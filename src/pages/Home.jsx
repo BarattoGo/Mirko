@@ -6,33 +6,54 @@ import { openBookingModal, usePageSEO } from '../hooks';
 import { Counter, CtaBanner, Contact, SectionHeading } from '../components/Sections';
 
 /* ============ HERO ============ */
+const HERO_SLIDES = [
+  {
+    src: '/hero-day.jpg',
+    alt: 'Bottigliera con oltre 166 gin e calici balloon da Shake & Tonic a Novara',
+    night: false,
+  },
+  {
+    src: '/hero-night.jpg',
+    alt: 'Atmosfera serale e bancone illuminato di viola da Shake & Tonic a Novara',
+    night: true,
+  },
+  {
+    src: '/hero-aperitivo.jpg',
+    alt: 'Aperitivo con calici balloon e tagliere da Shake & Tonic a Novara',
+    night: false,
+  },
+  {
+    src: '/hero-bartender.jpg',
+    alt: 'Bartender all’opera dietro il bancone di Shake & Tonic a Novara',
+    night: true,
+  },
+];
+
 const Hero = () => {
-  const [night, setNight] = useState(false);
+  const [slideIdx, setSlideIdx] = useState(0);
 
   useEffect(() => {
-    const t = setInterval(() => setNight((n) => !n), 6000);
+    const t = setInterval(() => setSlideIdx((i) => (i + 1) % HERO_SLIDES.length), 5000);
     return () => clearInterval(t);
   }, []);
+
+  const current = HERO_SLIDES[slideIdx];
 
   return (
     <header className="hero">
       <div className="hero-bg">
-        <img
-          src="/hero-day.jpg"
-          alt="Bancone e sala di Shake & Tonic a Novara di giorno"
-          width="1376"
-          height="768"
-          fetchPriority="high"
-          className={night ? '' : 'active'}
-        />
-        <img
-          src="/hero-night.jpg"
-          alt="Atmosfera serale e cocktail bar da Shake & Tonic a Novara"
-          width="1376"
-          height="768"
-          decoding="async"
-          className={night ? 'active' : ''}
-        />
+        {HERO_SLIDES.map((s, i) => (
+          <img
+            key={s.src}
+            src={s.src}
+            alt={s.alt}
+            width="1080"
+            height="1080"
+            fetchPriority={i === 0 ? 'high' : undefined}
+            decoding={i === 0 ? undefined : 'async'}
+            className={i === slideIdx ? 'active' : ''}
+          />
+        ))}
       </div>
       <div className="hero-overlay" />
       <div className="orb orb-a" />
@@ -62,7 +83,7 @@ const Hero = () => {
 
       <div className="hero-bottom">
         <span>{CONTACT.address} · Novara</span>
-        <span className="hero-mood">{night ? <><Moon size={13} /> Di sera</> : <><Sun size={13} /> Di giorno</>}</span>
+        <span className="hero-mood">{current.night ? <><Moon size={13} /> Di sera</> : <><Sun size={13} /> Di giorno</>}</span>
       </div>
     </header>
   );
@@ -135,8 +156,8 @@ const About = () => (
         <div className="about-image reveal">
           <div className="about-frame" />
           <img
-            src="/gin-tonic.jpg"
-            alt="Gin Tonic d'autore servito in calice balloon da Shake & Tonic a Novara"
+            src="/cocktail-signature.jpg"
+            alt="Cocktail Signature d'autore servito da Shake & Tonic a Novara"
             width="1024"
             height="1024"
             loading="lazy"
@@ -144,7 +165,7 @@ const About = () => (
           />
           <div className="about-badge glass">
             <span>Signature</span>
-            <strong>Gin &amp; Tonic</strong>
+            <strong>Mixology &amp; Gin</strong>
           </div>
         </div>
         <div className="about-text reveal">

@@ -61,7 +61,7 @@ const GintoneriaPage = () => {
   return (
     <>
       <PageHero
-        image="/hero-night.jpg"
+        image="/hero-day.jpg"
         label="Di Sera"
         title="La"
         em="Gintoneria"

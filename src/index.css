@@ -523,6 +523,7 @@ h1 em, h2 em, h3 em { font-style: italic; font-weight: 300; color: var(--violet-
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
+  object-position: center 45%;
   opacity: 0;
   transition: opacity 2s ease-in-out;
   animation: kenburns 24s ease-in-out infinite alternate;
@@ -530,7 +531,7 @@ h1 em, h2 em, h3 em { font-style: italic; font-weight: 300; color: var(--violet-
 .hero-bg img.active { opacity: 1; }
 @keyframes kenburns {
   from { transform: scale(1); }
-  to { transform: scale(1.14) translate(-1%, -1%); }
+  to { transform: scale(1.06) translate(-0.5%, -0.5%); }
 }
 .hero-overlay {
   position: absolute; inset: 0; z-index: 1;
@@ -887,7 +888,7 @@ h1 em, h2 em, h3 em { font-style: italic; font-weight: 300; color: var(--violet-
 }
 .page-hero.has-image { min-height: 78vh; }
 .page-hero-bg { position: absolute; inset: 0; }
-.page-hero-bg img { width: 100%; height: 100%; object-fit: cover; animation: kenburns 24s ease-in-out infinite alternate; }
+.page-hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; animation: kenburns 24s ease-in-out infinite alternate; }
 .page-hero-overlay {
   position: absolute; inset: 0; z-index: 1;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(10, 6, 16, 0.4) 40%, var(--bg) 100%);
