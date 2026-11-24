@@ -7,7 +7,7 @@
 export const SITE = {
   name: 'Shake & Tonic',
   /* TODO: verificare/aggiornare con il dominio definitivo di produzione (senza slash finale) */
-  url: 'https://www.shakeandtonic.it',
+  url: 'https://shakeandtonic.it',
   locale: 'it_IT',
   priceRange: '€€',
   geo: {

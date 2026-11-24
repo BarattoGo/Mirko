@@ -6,7 +6,7 @@ const distDir = path.resolve('dist');
 const template = fs.readFileSync(path.join(distDir, 'index.html'), 'utf8');
 
 /* Rileva automaticamente l'URL del deploy su Netlify o Vercel:
-   - Su Netlify production usa process.env.URL (che diventa automaticamente https://www.shakeandtonic.it appena agganciato il dominio)
+   - Su Netlify production usa process.env.URL (che diventa automaticamente https://shakeandtonic.it appena agganciato il dominio)
    - Su branch preview usa DEPLOY_PRIME_URL / VERCEL_BRANCH_URL */
 const isProd =
   process.env.CONTEXT === 'production' ||
