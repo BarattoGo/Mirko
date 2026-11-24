@@ -5,13 +5,20 @@ import { PAGE_SEO, SITE } from '../src/data.js';
 const distDir = path.resolve('dist');
 const template = fs.readFileSync(path.join(distDir, 'index.html'), 'utf8');
 
-/* Rileva automaticamente l'URL del deploy su Vercel o Netlify (anche sul branch test!) */
-const rawOrigin =
-  process.env.DEPLOY_PRIME_URL ||
-  (process.env.VERCEL_BRANCH_URL ? `https://${process.env.VERCEL_BRANCH_URL}` : '') ||
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '') ||
-  process.env.URL ||
-  SITE.url;
+/* Rileva automaticamente l'URL del deploy su Netlify o Vercel:
+   - Su Netlify production usa process.env.URL (che diventa automaticamente https://www.shakeandtonic.it appena agganciato il dominio)
+   - Su branch preview usa DEPLOY_PRIME_URL / VERCEL_BRANCH_URL */
+const isProd =
+  process.env.CONTEXT === 'production' ||
+  process.env.VERCEL_ENV === 'production';
+
+const rawOrigin = isProd
+  ? process.env.URL || SITE.url
+  : process.env.DEPLOY_PRIME_URL ||
+    (process.env.VERCEL_BRANCH_URL ? `https://${process.env.VERCEL_BRANCH_URL}` : '') ||
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '') ||
+    process.env.URL ||
+    SITE.url;
 
 const origin = rawOrigin.replace(/\/+$/, '');
 
