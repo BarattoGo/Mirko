@@ -184,7 +184,7 @@ export const GinMatcher = () => {
             </div>
           </div>
         </div>
-        <p className="matcher-note">Abbinamenti indicativi: la nostra carta gin cambia spesso, chiedi sempre al bartender le novità della settimana.</p>
+        <p className="matcher-note">Abbinamenti indicativi: oltre alle proposte in carta, al bancone trovi più di 166 etichette di gin e cocktail fuori menù. Chiedi sempre al bartender le novità della settimana!</p>
       </div>
     </section>
   );

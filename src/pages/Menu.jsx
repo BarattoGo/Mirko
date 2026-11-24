@@ -121,16 +121,16 @@ const MenuPage = () => {
             );
           })}
           <p className="menu-note">
-            Per allergie o intolleranze chiedi pure al nostro staff. I prezzi sono IVA inclusa.
+            Oltre alle proposte in carta, al bancone trovi oltre 166 etichette di gin e numerosi cocktail e distillati fuori menù: chiedi consiglio al nostro bartender. Per allergie o intolleranze rivolgiti allo staff. I prezzi sono IVA inclusa.
           </p>
         </div>
       </section>
 
       <CtaBanner
         label="La Gintoneria"
-        title="Oltre 30 gin"
+        title="Oltre 166 gin"
         em="ti aspettano"
-        text="Scopri la nostra selezione e trova il gin tonic giusto per te con il Matcher."
+        text="Oltre alla selezione in carta, scopri al bancone tutte le nostre etichette fuori menù e trova il gin tonic giusto per te con il Matcher."
         to="/gintoneria"
         cta="Vai alla Gintoneria"
       />

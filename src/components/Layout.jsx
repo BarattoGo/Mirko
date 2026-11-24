@@ -189,11 +189,11 @@ export const Footer = () => (
 );
 
 /* ============ MODALE PRENOTAZIONE RAPIDA (montato nel DOM solo quando aperto) ============ */
-const BOOKING_DAYS = ['Stasera', 'Domani', 'Venerdì', 'Sabato', 'Altro giorno'];
+const BOOKING_DAYS = ['Stasera', 'Domani', 'Giovedì', 'Venerdì', 'Altro giorno'];
 const BOOKING_SLOTS = [
   { id: 'aperitivo', label: 'Aperitivo', time: '18:30 – 20:30' },
   { id: 'dopocena', label: 'Dopocena', time: '21:30 – 23:30' },
-  { id: 'giorno', label: 'Pranzo / Caffè', time: '12:00 – 15:00' },
+  { id: 'giorno', label: 'Mattina / Aperitivo', time: '08:00 – 13:00' },
 ];
 const BOOKING_GUESTS = ['2', '3', '4', '5', '6+'];
 

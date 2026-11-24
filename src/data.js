@@ -51,7 +51,7 @@ export const PAGE_SEO = {
   home: {
     title: 'Shake & Tonic | Gintoneria e Cocktail Bar a Novara',
     description:
-      "Shake & Tonic — Gintoneria e Cocktail bar d'autore a Novara in Via Galileo Galilei 17. Oltre 30 gin premium, toniche artigianali, cocktail signature, colazioni e aperitivi.",
+      "Shake & Tonic — Gintoneria e Cocktail bar d'autore a Novara in Via Galileo Galilei 17. Oltre 166 gin premium, 9+ toniche artigianali, cocktail signature, colazioni e aperitivi.",
     path: '/',
     image: '/logo.jpg',
   },
@@ -63,9 +63,9 @@ export const PAGE_SEO = {
     image: '/gin-tonic.jpg',
   },
   gintoneria: {
-    title: 'La Gintoneria | Oltre 30 Gin & Matcher — Shake & Tonic Novara',
+    title: 'La Gintoneria | Oltre 166 Gin & Matcher — Shake & Tonic Novara',
     description:
-      "La Gintoneria d'autore di Shake & Tonic a Novara: oltre 30 etichette di gin selezionati, 12 toniche artigianali, botaniche fresche e il Gin & Tonic Matcher.",
+      "La Gintoneria d'autore di Shake & Tonic a Novara: oltre 166 etichette di gin selezionati, 9+ toniche artigianali, botaniche fresche e il Gin & Tonic Matcher.",
     path: '/gintoneria',
     image: '/hero-night.jpg',
   },
@@ -102,7 +102,8 @@ export const PAGE_SEO = {
 export const HOURS = [
   { label: 'Lunedì — Mercoledì', days: [1, 2, 3], open: 7, close: 22, text: '07:00 — 22:00' },
   { label: 'Giovedì', days: [4], open: 7, close: 24, text: '07:00 — 00:00' },
-  { label: 'Venerdì — Sabato', days: [5, 6], open: 7, close: 25, text: '07:00 — 01:00' },
+  { label: 'Venerdì', days: [5], open: 7, close: 25, text: '07:00 — 01:00' },
+  { label: 'Sabato', days: [6], open: 8, close: 13, text: '08:00 — 13:00' },
   { label: 'Domenica', days: [0], open: 7, close: 13, text: '07:00 — 13:00' },
 ];
 
@@ -120,8 +121,8 @@ export const MOODS = {
     time: '18:00 — chiusura',
     title: 'Gintoneria',
     titleEm: "d'Autore",
-    desc: 'Una selezione curata di gin premium, toniche artigianali e botaniche fresche. Ogni drink racconta una storia.',
-    items: ['30+ gin premium', 'Toniche artigianali', 'Cocktail signature', 'Taglieri & Bruschettoni'],
+    desc: 'Una selezione curata di oltre 166 gin premium tra carta e fuori menù, toniche artigianali e botaniche fresche. Ogni drink racconta una storia.',
+    items: ['166+ gin premium', '9+ toniche artigianali', 'Cocktail signature & fuori menù', 'Taglieri & Bruschettoni'],
   },
 };
 

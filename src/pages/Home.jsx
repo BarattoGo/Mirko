@@ -163,8 +163,8 @@ const About = () => (
             cura per creare l'abbinamento perfetto.
           </p>
           <div className="about-stats">
-            <Counter value={30} suffix="+" label="Gin in carta" />
-            <Counter value={12} label="Toniche artigianali" />
+            <Counter value={166} suffix="+" label="Etichette di gin" />
+            <Counter value={9} suffix="+" label="Toniche artigianali" />
             <div className="counter">
               <span className="counter-value">7<small>/7</small></span>
               <span className="counter-label">Giorni a settimana</span>
