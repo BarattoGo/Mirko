@@ -29,7 +29,7 @@ export const LEGAL = {
   pec: '',
   shareCapital: '',
   privacyEmail: 'info@shakeandtonic.it',
-  lastUpdated: '17 novembre 2026',
+  lastUpdated: '24 novembre 2026',
 };
 
 export const CONTACT = {

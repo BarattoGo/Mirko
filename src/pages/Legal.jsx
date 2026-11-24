@@ -122,13 +122,6 @@ export const PrivacyPolicyPage = () => {
                 necessari esclusivamente per rispondere alle richieste ricevute.
               </li>
               <li>
-                <strong>Dati statistici raccolti previo consenso (Google Analytics 4):</strong>{' '}
-                esclusivamente qualora l’utente esprima il proprio consenso esplicito tramite il
-                banner cookie, il sito utilizza Google Analytics 4 per raccogliere informazioni
-                statistiche aggregate sull’utilizzo delle pagine e sulle interazioni principali (es.
-                visualizzazioni pagina, click sui pulsanti di contatto).
-              </li>
-              <li>
                 <strong>Contenuti incorporati di terze parti (Google Maps):</strong> la mappa
                 interattiva presente nella sezione Contatti è bloccata preventivamente e viene
                 caricata solo su esplicita azione o consenso dell’utente. L’attivazione della mappa
@@ -150,10 +143,9 @@ export const PrivacyPolicyPage = () => {
                 dell’interessato, art. 6 par. 1 lett. b GDPR).
               </li>
               <li>
-                <strong>Analisi statistica del traffico (Google Analytics 4) e mappe interattive:</strong>{' '}
-                misurare in forma statistica le visite al sito e mostrare la mappa interattiva di
-                Google Maps (base giuridica: consenso esplicito dell’interessato, art. 6 par. 1
-                lett. a GDPR, revocabile in qualsiasi momento).
+                <strong>Mappe interattive di terze parti (Google Maps):</strong> mostrare la mappa
+                interattiva con la posizione del locale (base giuridica: consenso esplicito
+                dell’interessato, art. 6 par. 1 lett. a GDPR, revocabile in qualsiasi momento).
               </li>
               <li>
                 <strong>Adempimento di obblighi di legge:</strong> ottemperare a obblighi previsti da
@@ -165,21 +157,22 @@ export const PrivacyPolicyPage = () => {
             <h2>4. Modalità del Trattamento, Destinatari e Trasferimenti Extra-UE</h2>
             <p>
               Il trattamento è effettuato con strumenti informatici e telematici adottando misure
-              tecniche e organizzative adeguate (incluso il protocollo crittografato HTTPS). Oltre
-              al Titolare, possono avere accesso tecnici o fornitori esterni nominati, ove
-              necessario, Responsabili del Trattamento ex art. 28 GDPR:
+              tecniche e organizzative adeguate (incluso il protocollo crittografato HTTPS). Il sito
+              non utilizza strumenti di profilazione commerciale né sistemi di tracciamento
+              statistico basati su cookie di terze parti. Oltre al Titolare, possono avere accesso
+              tecnici o fornitori esterni nominati, ove necessario, Responsabili del Trattamento ex
+              art. 28 GDPR:
             </p>
             <ul>
               <li>
-                <strong>Hosting e distribuzione (CDN):</strong> Vercel Inc. (con infrastruttura edge
-                distribuita e clausole contrattuali standard / adesione al Data Privacy Framework
-                UE-USA).
+                <strong>Hosting e distribuzione (CDN):</strong> Netlify, Inc. (con infrastruttura
+                edge distribuita e clausole contrattuali standard / adesione al Data Privacy
+                Framework UE-USA).
               </li>
               <li>
-                <strong>Servizi statistici e mappe (previo consenso):</strong> Google Ireland
-                Limited (Gordon House, Barrow Street, Dublino 4, Irlanda) e Google LLC (USA),
-                aderente all’EU-US Data Privacy Framework. Su Google Analytics 4 è attiva
-                l’anonimizzazione dell’indirizzo IP.
+                <strong>Mappe interattive (solo previo consenso):</strong> Google Ireland Limited
+                (Gordon House, Barrow Street, Dublino 4, Irlanda) e Google LLC (USA), aderente
+                all’EU-US Data Privacy Framework.
               </li>
               <li>
                 <strong>Piattaforma di gestione del consenso (CMP):</strong> CookieYes Limited,
@@ -194,15 +187,14 @@ export const PrivacyPolicyPage = () => {
                 garantire la sicurezza e l’operatività del servizio.
               </li>
               <li>
-                Le comunicazioni inviate volontariamente via email o telefono sono conservate per il
-                tempo necessario a evadere la richiesta dell’utente, fatti salvi eventuali obblighi
-                di legge.
+                Le comunicazioni inviate volontariamente via email, telefono o WhatsApp sono
+                conservate per il tempo necessario a evadere la richiesta dell’utente, fatti salvi
+                eventuali obblighi di legge.
               </li>
               <li>
-                I dati statistici associati ai cookie di Google Analytics 4 (attivati solo previo
-                consenso) sono conservati secondo le durate indicate nella{' '}
-                <Link to="/cookie-policy">Cookie Policy</Link> (fino a un massimo di 14 mesi per il
-                cookie identificativo, o 2 mesi per i dati a livello di evento in GA4).
+                Le preferenze espresse tramite il banner cookie sono conservate per 1 anno (o fino a
+                revoca da parte dell’utente), come indicato nella{' '}
+                <Link to="/cookie-policy">Cookie Policy</Link>.
               </li>
             </ul>
 
@@ -286,16 +278,16 @@ export const CookiePolicyPage = () => {
 
             <h2>2. Gestione immediata delle tue preferenze</h2>
             <p>
-              Puoi rivedere o modificare in qualsiasi momento il consenso ai cookie statistici
-              tramite il pannello di gestione del consenso (CookieYes) e gestire lo sblocco della
-              mappa interattiva di Google Maps:
+              Puoi rivedere o modificare in qualsiasi momento le tue preferenze tramite il pannello
+              di gestione del consenso (CookieYes) e gestire lo sblocco della mappa interattiva di
+              Google Maps:
             </p>
 
             <div className="legal-box legal-consent-controls">
               <div className="legal-consent-row">
                 <div>
-                  <strong>Preferenze Banner Cookie (CookieYes / Google Analytics 4)</strong>
-                  <p>Apri il pannello per accettare o rifiutare i cookie analitici di terze parti.</p>
+                  <strong>Preferenze Banner Cookie (CookieYes)</strong>
+                  <p>Apri il pannello per rivedere o revocare il consenso espresso sul sito.</p>
                 </div>
                 <button type="button" className="btn btn-primary" onClick={handleOpenCmp}>
                   <Cookie size={15} /> Gestisci preferenze cookie
@@ -361,45 +353,14 @@ export const CookiePolicyPage = () => {
               </table>
             </div>
 
-            <h3>B. Cookie Analitici di Terze Parti (Attivati SOLO previo consenso)</h3>
+            <h3>B. Cookie di Profilazione e Analitici di Terze Parti</h3>
             <p>
-              Questi cookie vengono installati esclusivamente se l’utente clicca su “Accetta” nel
-              banner cookie. Vengono utilizzati tramite <strong>Google Analytics 4</strong> (Google
-              Ireland Limited) per raccogliere dati statistici aggregati sul numero degli utenti e
-              su come questi visitano il sito (pagine viste, click sui pulsanti di chiamata,
-              WhatsApp, indicazioni stradali).
+              Questo sito <strong>non utilizza cookie di profilazione pubblicitaria né cookie
+              analitici di terze parti</strong> (come Google Analytics). Per monitorare le
+              prestazioni di indicizzazione del sito sui motori di ricerca viene utilizzato
+              esclusivamente Google Search Console, che opera lato motore di ricerca senza
+              installare alcun cookie sul dispositivo del visitatore.
             </p>
-            <div className="legal-table-wrap">
-              <table className="legal-table">
-                <thead>
-                  <tr>
-                    <th>Nome</th>
-                    <th>Fornitore</th>
-                    <th>Finalità e Privacy Policy</th>
-                    <th>Durata</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code>_ga</code></td>
-                    <td>Google Ireland Ltd</td>
-                    <td>
-                      Distingue gli utenti a fini statistici.{' '}
-                      <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
-                        Privacy Policy Google
-                      </a>
-                    </td>
-                    <td>Max 14 mesi (o 2 anni default GA4)</td>
-                  </tr>
-                  <tr>
-                    <td><code>_ga_*</code></td>
-                    <td>Google Ireland Ltd</td>
-                    <td>Mantiene e conserva lo stato della sessione statistica su Google Analytics 4.</td>
-                    <td>Max 14 mesi (o 2 anni default GA4)</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
 
             <h3>C. Servizi di Terze Parti incorporati (Google Maps)</h3>
             <p>
