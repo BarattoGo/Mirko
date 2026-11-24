@@ -131,36 +131,63 @@ export const trackEvent = (eventName, params = {}) => {
 };
 
 /* Gestione blocco preventivo Google Maps + integrazione CookieYes */
-const MAP_CONSENT_KEY = 'shake_tonic_map_consent';
+const MAP_CONSENT_KEY = 'shake_tonic_map_consent_v2';
 
-const hasCookieYesMapConsent = () => {
-  if (typeof document === 'undefined') return false;
+const getCookieYesConsent = () => {
+  if (typeof document === 'undefined') return null;
   const match = document.cookie.match(/(?:^|;\s*)cookieyes-consent=([^;]*)/);
-  if (!match) return false;
+  if (!match) return null;
   const val = decodeURIComponent(match[1]);
-  return val.includes('functional:yes') || val.includes('analytics:yes');
+  const acted = val.includes('action:yes');
+  const allowed = val.includes('functional:yes') || val.includes('analytics:yes');
+  return { acted, allowed };
 };
 
 export const useMapConsent = () => {
   const [allowed, setAllowed] = useState(() => {
     if (typeof window === 'undefined') return false;
+    const cky = getCookieYesConsent();
+    if (cky?.allowed) return true;
     try {
-      return window.localStorage.getItem(MAP_CONSENT_KEY) === '1' || hasCookieYesMapConsent();
+      return window.localStorage.getItem(MAP_CONSENT_KEY) === '1';
     } catch {
-      return hasCookieYesMapConsent();
+      return false;
     }
   });
 
   useEffect(() => {
-    const onConsentUpdate = () => {
-      const ok = hasCookieYesMapConsent();
-      setAllowed((prev) => prev || ok);
+    const onConsentUpdate = (e) => {
+      const accepted = e?.detail?.accepted;
+      const ok = Array.isArray(accepted)
+        ? accepted.includes('functional') || accepted.includes('analytics')
+        : Boolean(getCookieYesConsent()?.allowed);
+
+      if (!ok) {
+        try {
+          window.localStorage.removeItem(MAP_CONSENT_KEY);
+        } catch {
+          /* ignore storage errors */
+        }
+      }
+      setAllowed(ok);
     };
+
+    const onStorage = () => {
+      try {
+        setAllowed(
+          window.localStorage.getItem(MAP_CONSENT_KEY) === '1' ||
+            Boolean(getCookieYesConsent()?.allowed)
+        );
+      } catch {
+        setAllowed(Boolean(getCookieYesConsent()?.allowed));
+      }
+    };
+
     document.addEventListener('cookieyes_consent_update', onConsentUpdate);
-    window.addEventListener('storage', onConsentUpdate);
+    window.addEventListener('storage', onStorage);
     return () => {
       document.removeEventListener('cookieyes_consent_update', onConsentUpdate);
-      window.removeEventListener('storage', onConsentUpdate);
+      window.removeEventListener('storage', onStorage);
     };
   }, []);
 
