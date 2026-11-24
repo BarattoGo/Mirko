@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Clock, MapPin, Phone, Mail, MessageCircle, Navigation, ArrowRight,
@@ -18,23 +18,44 @@ export const SectionHeading = ({ label, title, em, text, align = 'center' }) => 
 );
 
 /* ============ HERO DELLE PAGINE INTERNE ============ */
-export const PageHero = ({ label, title, em, text, image, id }) => (
-  <header className={`page-hero ${image ? 'has-image' : ''}`} id={id}>
-    {image && (
-      <div className="page-hero-bg">
-        <img src={image} alt="" width="1376" height="768" decoding="async" />
+export const PageHero = ({ label, title, em, text, image, images, id }) => {
+  const slides = images && images.length > 0 ? images : image ? [image] : [];
+  const [slideIdx, setSlideIdx] = useState(0);
+
+  useEffect(() => {
+    if (slides.length <= 1) return undefined;
+    const t = setInterval(() => setSlideIdx((i) => (i + 1) % slides.length), 5000);
+    return () => clearInterval(t);
+  }, [slides.length]);
+
+  return (
+    <header className={`page-hero ${slides.length > 0 ? 'has-image' : ''}`} id={id}>
+      {slides.length > 0 && (
+        <div className="page-hero-bg">
+          {slides.map((src, i) => (
+            <img
+              key={src}
+              src={src}
+              alt=""
+              width="1080"
+              height="1080"
+              decoding="async"
+              className={i === slideIdx ? 'active' : ''}
+            />
+          ))}
+        </div>
+      )}
+      <div className="page-hero-overlay" />
+      <div className="orb orb-a" />
+      <div className="orb orb-b" />
+      <div className="page-hero-content container">
+        <span className="label label-white hero-anim" style={{ '--d': '0.1s' }}>{label}</span>
+        <h1 className="hero-anim" style={{ '--d': '0.25s' }}>{title} <em>{em}</em></h1>
+        {text && <p className="hero-anim" style={{ '--d': '0.4s' }}>{text}</p>}
       </div>
-    )}
-    <div className="page-hero-overlay" />
-    <div className="orb orb-a" />
-    <div className="orb orb-b" />
-    <div className="page-hero-content container">
-      <span className="label label-white hero-anim" style={{ '--d': '0.1s' }}>{label}</span>
-      <h1 className="hero-anim" style={{ '--d': '0.25s' }}>{title} <em>{em}</em></h1>
-      {text && <p className="hero-anim" style={{ '--d': '0.4s' }}>{text}</p>}
-    </div>
-  </header>
-);
+    </header>
+  );
+};
 
 /* ============ CONTATORE ============ */
 export const Counter = ({ value, suffix = '', label }) => {
